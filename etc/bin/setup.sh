@@ -15,7 +15,7 @@ build_web() {
     # Install dependencies
     if [ "$RUN_FILES" != "" ]; then
         echo "    📦   Installing dependencies"
-        docker-compose run --rm build-web yarn --cwd /app/ add $RUN_FILES > /dev/null
+        docker-compose run --rm node yarn --cwd /app/ add -D $RUN_FILES > /dev/null
     fi
     # Install dev dependencies
     if [ "$DEV_FILES" != "" ]; then

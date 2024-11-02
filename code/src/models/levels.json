@@ -1,0 +1,10 @@
+{
+  "levels": [
+    {
+      "name": "intro-scene"
+    },
+    {
+      "name": "home-scene"
+    }
+  ]
+}

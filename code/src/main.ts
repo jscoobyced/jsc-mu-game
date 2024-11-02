@@ -1,4 +1,9 @@
-import './style.css';
+import Phaser from 'phaser';
+import config from './config';
+import IntroScene from './scenes/IntroScene';
 
-const appElement = document.querySelector<HTMLDivElement>('#app');
-if (appElement) appElement.innerHTML = `<div>Hello, World</div>`;
+new Phaser.Game(
+  Object.assign(config, {
+    scene: [IntroScene],
+  }),
+);

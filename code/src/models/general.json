@@ -1,0 +1,11 @@
+{
+  "width": 800,
+  "height": 600,
+  "backgroundColor": "#cedced",
+  "baseUrls": {
+    "images": "assets/images",
+    "audio": "assets/audio",
+    "json": "assets/json",
+    "fonts": "assets/fonts"
+  }
+}
