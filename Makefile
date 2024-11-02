@@ -1,7 +1,13 @@
-.SILENT: setup dev
+.SILENT: .dep setup dev build
 
-setup:
-	@./etc/bin/setup.sh
+.dep:
+	chmod u+x ./etc/bin/*.sh
 
-dev:
-	@./etc/bin/dev.sh
+setup: .dep
+	./etc/bin/setup.sh
+
+dev: .dep
+	./etc/bin/dev.sh
+
+build: .dep
+	./etc/bin/build.sh
