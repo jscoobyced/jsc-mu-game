@@ -12,3 +12,7 @@ fi
 
 export JSC_UID=$(id -u)
 export JSC_GID=$(id -g)
+
+GIT_TAG=$(git describe --tags --abbrev=0)
+DOCKER_CREDENTIAL=$(jq -r .credsStore ~/.docker/config.json)
+DOCKER_ID=$(docker-credential-$DOCKER_CREDENTIAL list | jq -r '. | to_entries[] | select(.key | contains("docker.io")) | last(.value)')
