@@ -1,0 +1,6 @@
+# Development
+.env
+node_modules
+
+# production
+dist

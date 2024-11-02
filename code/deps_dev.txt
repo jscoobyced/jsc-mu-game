@@ -1,0 +1,8 @@
+@eslint/js
+eslint
+jsdom
+prettier
+prettier-plugin-organize-imports
+typescript
+typescript-eslint
+vite
