@@ -3,7 +3,7 @@ import BaseScene from './BaseScene';
 
 export default class IntroScene extends BaseScene {
   protected player: Player = new Player();
-  private isCollided = false;
+  //private isCollided = false;
 
   constructor() {
     super(1);
@@ -32,6 +32,6 @@ export default class IntroScene extends BaseScene {
   };
 
   private playerColliding = () => {
-    this.isCollided = true;
+    //this.isCollided = true;
   };
 }

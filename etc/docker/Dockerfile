@@ -4,8 +4,8 @@ WORKDIR /app
 COPY code ./
 RUN ls -al
 
-RUN cd code ; yarn install ; yarn build
+RUN yarn install ; yarn build
 
 FROM nginx:alpine
-COPY --from=builder /app/client/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
