@@ -16,7 +16,7 @@ export default class IntroScene extends BaseScene {
   }
 
   create() {
-    const middleX = this.general.width / 2
+    const middleX = this.game.canvas.width / 2
     const middleY = this.general.height / 2
     const logo = this.add.image(middleX, middleY, 'title-image')
     this.tweens.add({

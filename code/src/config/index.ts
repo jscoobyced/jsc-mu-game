@@ -6,12 +6,11 @@ const generalSettings = getGeneralSettings()
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
-  parent: 'game',
   backgroundColor: generalSettings.backgroundColor,
   scale: {
     width: generalSettings.width,
     height: generalSettings.height,
-    mode: Phaser.Scale.FIT,
+    mode: Phaser.Scale.RESIZE,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   physics: {
