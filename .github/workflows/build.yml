@@ -86,7 +86,7 @@ jobs:
         with:
           name: ${{ env.IMAGE_NAME }}
 
-      - name: Untar common Dependencies
+      - name: Untar Dependencies
         run: tar -xzf ${{ env.IMAGE_NAME }}.tar.gz -C ./${{ env.SRC_PATH }}
 
       - name: Run Tests
@@ -121,9 +121,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: coverage-report-${{ env.IMAGE_NAME }}
+          path: ${{ env.SRC_PATH }}
 
       - name: Set environment variable
         run: |
+          ls -al ${{ env.SRC_PATH }}
           cat ${{ env.SRC_PATH }}coverage/have_test.txt >> $GITHUB_ENV
 
       - name: Upload coverage to Codecov
