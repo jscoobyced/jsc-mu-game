@@ -178,10 +178,10 @@ export default class Player {
   }
 
   private updatePointerPosition = (): void => {
-    this.pointerRight = this.controller && this.controller.isMovingEast()
-    this.pointerLeft = this.controller && this.controller.isMovingWest()
-    this.pointerUp = this.controller && this.controller.isMovingNorth()
-    this.pointerDown = this.controller && this.controller.isMovingSouth()
+    this.pointerRight = this.controller.isMovingEast()
+    this.pointerLeft = this.controller.isMovingWest()
+    this.pointerUp = this.controller.isMovingNorth()
+    this.pointerDown = this.controller.isMovingSouth()
   }
 
   private createFrameSet = (

@@ -3,10 +3,10 @@ import { JoyStickKeys } from '../models/controller'
 
 export default class Controller {
   private joystick!: VirtualJoystick
-  private isUp: boolean = false
-  private isDown: boolean = false
-  private isLeft: boolean = false
-  private isRight: boolean = false
+  private isUp = false
+  private isDown = false
+  private isLeft = false
+  private isRight = false
 
   constructor(scene: Phaser.Scene) {
     const { height } = scene.game.canvas

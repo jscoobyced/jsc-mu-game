@@ -21,5 +21,7 @@ export default class BaseScene extends Phaser.Scene {
 
   protected getGeneralConfig = (): GeneralSettings => general
 
-  protected playerCollidingWithWorld = () => {}
+  protected playerCollidingWithWorld = () => {
+    // In case want to have high level event.
+  }
 }
