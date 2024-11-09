@@ -67,6 +67,73 @@ jobs:
         run: |
           yarn --cwd ${{ env.SRC_PATH }} lint
 
+  test:
+    name: Run ESlint on source code
+    runs-on: ubuntu-latest
+    needs: install
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.IMAGE_NAME }}
+
+      - name: Untar common Dependencies
+        run: tar -xzf ${{ env.IMAGE_NAME }}.tar.gz -C ./${{ env.SRC_PATH }}
+
+      - name: Run Tests
+        run: |
+          mkdir -p ${{ env.SRC_PATH }}/coverage
+          HAVE_TEST=$(find ${{ env.SRC_PATH }} -name "*.test.ts" | wc -l)
+          echo "HAVE_TEST=${HAVE_TEST}" > ${{ env.SRC_PATH }}/coverage/have_test.txt
+          if [ $HAVE_TEST -ne 0 ];
+          then
+            yarn --cwd ${{ env.SRC_PATH }} test --coverage
+          fi
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-${{ env.IMAGE_NAME }}
+          retention-days: 1
+          path: ${{ env.SRC_PATH }}/coverage/
+
+  upload-coverage:
+    name: Upload Coverage to Codecov
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report-${{ env.IMAGE_NAME }}
+
+      - name: Set environment variable
+        run: |
+          cat ${{ env.SRC_PATH }}/coverage/have_test.txt >> $GITHUB_ENV
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        if: env.HAVE_TEST != 0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./${{ env.SRC_PATH }}/coverage/*.json
+          flags: unittests
+          name: code-coverage
+          fail_ci_if_error: true
+
   build-image:
     name: Build image and push to Docker Hub
     runs-on: ubuntu-latest

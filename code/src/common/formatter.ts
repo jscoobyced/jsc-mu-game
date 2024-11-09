@@ -1,5 +1,2 @@
-export const withLeadingZero = (value: number) => {
-  const stringValue = value.toString();
-  if (value < 10) return `0${stringValue}`;
-  return stringValue;
-};
+export const withLeadingZero = (value: number, places: number = 2) =>
+  String(value).padStart(places, '0');

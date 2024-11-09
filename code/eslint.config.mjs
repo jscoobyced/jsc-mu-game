@@ -3,13 +3,7 @@ import tsParser from '@typescript-eslint/parser';
 
 export default [
   {
-    ignores: [
-      'coverage/**',
-      'dist/**',
-      'node_modules/**',
-      'vitest.config.ts',
-      'vite.config.test.ts',
-    ],
+    ignores: ['coverage/**', 'dist/**', 'node_modules/**', 'vitest.config.ts'],
   },
   {
     files: ['**/*.ts'],

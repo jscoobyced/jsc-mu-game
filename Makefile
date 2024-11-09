@@ -6,8 +6,14 @@
 setup: .dep
 	./etc/bin/setup.sh
 
+setup-with-tests: .dep
+	TESTS=y ./etc/bin/setup.sh
+
 dev: .dep
 	./etc/bin/dev.sh
+
+test: .dep
+	./etc/bin/test.sh
 
 prod: .dep
 	./etc/bin/production.sh
