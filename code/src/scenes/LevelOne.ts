@@ -1,3 +1,4 @@
+import Controller from '../common/controller';
 import Player from '../sprites/Player';
 import BaseScene from './BaseScene';
 
@@ -19,7 +20,13 @@ export default class IntroScene extends BaseScene {
       x: 50,
       y: 50,
     };
-    this.player.create(position.x, position.y, this, this.cursor);
+    this.player.create(
+      position.x,
+      position.y,
+      this,
+      this.cursor,
+      new Controller(this.scene.scene),
+    );
     const player = this.player.getPlayer();
     if (player.body) player.body.world.on('worldbounds', this.playerColliding);
   }

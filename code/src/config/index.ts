@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+
 import getGeneralSettings from '../models/general';
 
 const generalSettings = getGeneralSettings();

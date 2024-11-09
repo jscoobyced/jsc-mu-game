@@ -1,1 +1,2 @@
 phaser
+phaser3-rex-plugins

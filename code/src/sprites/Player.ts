@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Controller from '../common/controller';
 import { withLeadingZero } from '../common/formatter';
 import getGeneralSettings, { GeneralSettings } from '../models/general';
 
@@ -6,6 +7,7 @@ export default class Player {
   private name = 'Mumu';
   private player!: Phaser.Physics.Arcade.Sprite;
   private cursor!: Phaser.Types.Input.Keyboard.CursorKeys;
+  private controller!: Controller;
   private PLAYER_VELOCITY_WALK = 200;
   private PLAYER_WALK_TO_RUN_TIME_IN_MS = 500;
   private PLAYER_VELOCITY_RUN_FACTOR = 2;
@@ -31,6 +33,7 @@ export default class Player {
     y: number,
     scene: Phaser.Scene,
     cursor: Phaser.Types.Input.Keyboard.CursorKeys,
+    controller: Controller,
   ): void => {
     this.player = scene.physics.add.sprite(x, y, this.name).setBounce(0);
     const body = this.player.body as Phaser.Physics.Arcade.Body;
@@ -38,6 +41,7 @@ export default class Player {
     this.createFrameSets(scene);
     this.player.play(this.playerDirection);
     this.cursor = cursor;
+    this.controller = controller;
   };
 
   update = (time: number): void => {
@@ -176,12 +180,10 @@ export default class Player {
   };
 
   private updatePointerPosition = (): void => {
-    /*
-    this.pointerRight = this.controller && this.controller.isMoveEast()
-    this.pointerLeft = this.controller && this.controller.isMoveWest()
-    this.pointerUp = this.controller && this.controller.isMoveNorth()
-    this.pointerDown = this.controller && this.controller.isMoveSouth()
-    */
+    this.pointerRight = this.controller && this.controller.isMovingEast();
+    this.pointerLeft = this.controller && this.controller.isMovingWest();
+    this.pointerUp = this.controller && this.controller.isMovingNorth();
+    this.pointerDown = this.controller && this.controller.isMovingSouth();
   };
 
   private createFrameSet = (
