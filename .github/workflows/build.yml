@@ -98,8 +98,6 @@ jobs:
             yarn --cwd ${{ env.SRC_PATH }} test --coverage
           fi
           echo "HAVE_TEST=${HAVE_TEST}" > ${{ env.SRC_PATH }}coverage/have_test.txt
-          ls -al ${{ env.SRC_PATH }}coverage/
-          cat ${{ env.SRC_PATH }}coverage/have_test.txt
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
@@ -121,11 +119,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: coverage-report-${{ env.IMAGE_NAME }}
-          path: ${{ env.SRC_PATH }}
+          path: ${{ env.SRC_PATH }}coverage
 
       - name: Set environment variable
         run: |
-          ls -al ${{ env.SRC_PATH }}
           cat ${{ env.SRC_PATH }}coverage/have_test.txt >> $GITHUB_ENV
 
       - name: Upload coverage to Codecov
