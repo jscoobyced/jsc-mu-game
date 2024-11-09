@@ -11,7 +11,7 @@ export default class BaseScene extends Phaser.Scene {
   }
 
   protected doPreload = () => {
-    if (this.input && this.input.keyboard)
+    if (this.input.keyboard)
       this.cursor = this.input.keyboard.createCursorKeys();
   };
 

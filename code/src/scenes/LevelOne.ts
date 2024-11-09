@@ -20,11 +20,8 @@ export default class IntroScene extends BaseScene {
       y: 50,
     };
     this.player.create(position.x, position.y, this, this.cursor);
-    if (this.player) {
-      const player = this.player.getPlayer();
-      if (player && player.body)
-        player.body.world.on('worldbounds', this.playerColliding);
-    }
+    const player = this.player.getPlayer();
+    if (player.body) player.body.world.on('worldbounds', this.playerColliding);
   }
 
   update = (time: number): void => {

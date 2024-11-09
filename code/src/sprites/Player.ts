@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { withLeadingZero } from '../common/formatter';
 import getGeneralSettings, { GeneralSettings } from '../models/general';
 
 export default class Player {
@@ -110,7 +111,7 @@ export default class Player {
         .replace('run', '');
       if (
         currentDirection === direction &&
-        this.playerDirection.indexOf('walk') >= 0 &&
+        this.playerDirection.includes('walk') &&
         longWalk
       ) {
         // Walking in the same direction for more than PLAYER_WALK_TO_RUN_TIME_IN_MS
@@ -187,13 +188,14 @@ export default class Player {
     move: string,
     direction: string,
     frameRate: number,
-    frameNumber: number = 3,
+    frameNumber = 3,
   ) => {
     const frames = [];
     for (let i = 1; i <= frameNumber; i++) {
+      const frameNumber = withLeadingZero(i);
       frames.push({
         key: this.name,
-        frame: `${direction}-${i <= 9 ? '0' : ''}${i}`,
+        frame: `${direction}-${frameNumber}`,
       });
     }
     return {

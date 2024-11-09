@@ -1,7 +1,8 @@
+import { GeneralSettings } from '../models/general';
 import BaseScene from './BaseScene';
 
 export default class IntroScene extends BaseScene {
-  private general!: any;
+  private general!: GeneralSettings;
   constructor() {
     super(0);
     this.general = this.getGeneralConfig();
