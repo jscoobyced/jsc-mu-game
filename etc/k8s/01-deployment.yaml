@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jsc-mu-game-app
+  namespace: jsc-ns
+  labels:
+    app: jsc-mu-game-app
+    component: jsc-mu-game-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jsc-mu-game-app
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: jsc-mu-game-app
+        tier: frontend
+    spec:
+      containers:
+        - name: jsc-mu-game
+          image: jscdroiddev/jsc-mu-game:latest
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: "Asia/Bangkok"
+          ports:
+            - containerPort: 80
+              name: jsc-mu-game-app
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+            requests:
+              cpu: "500m"
+              memory: "128Mi"
