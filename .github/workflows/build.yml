@@ -68,7 +68,7 @@ jobs:
           yarn --cwd ${{ env.SRC_PATH }} lint
 
   test:
-    name: Run ESlint on source code
+    name: Run tests on source code
     runs-on: ubuntu-latest
     needs: install
 
@@ -93,7 +93,7 @@ jobs:
         run: |
           mkdir -p ${{ env.SRC_PATH }}/coverage
           HAVE_TEST=$(find ${{ env.SRC_PATH }} -name "*.test.ts" | wc -l)
-          echo "HAVE_TEST=${HAVE_TEST}" > ${{ env.SRC_PATH }}/coverage/have_test.txt
+          echo "HAVE_TEST=${HAVE_TEST}" > ${{ env.SRC_PATH }}coverage/have_test.txt
           if [ $HAVE_TEST -ne 0 ];
           then
             yarn --cwd ${{ env.SRC_PATH }} test --coverage
@@ -122,14 +122,14 @@ jobs:
 
       - name: Set environment variable
         run: |
-          cat ${{ env.SRC_PATH }}/coverage/have_test.txt >> $GITHUB_ENV
+          cat ${{ env.SRC_PATH }}coverage/have_test.txt >> $GITHUB_ENV
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         if: env.HAVE_TEST != 0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./${{ env.SRC_PATH }}/coverage/*.json
+          files: ./${{ env.SRC_PATH }}coverage/*.json
           flags: unittests
           name: code-coverage
           fail_ci_if_error: true

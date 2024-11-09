@@ -1,2 +1,2 @@
-export const withLeadingZero = (value: number, places: number = 2) =>
+export const withLeadingZero = (value: number, places = 2) =>
   String(value).padStart(places, '0');
