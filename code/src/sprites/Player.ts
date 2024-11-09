@@ -7,7 +7,7 @@ export default class Player {
   private name = 'Mumu'
   private player!: Phaser.Physics.Arcade.Sprite
   private cursor!: Phaser.Types.Input.Keyboard.CursorKeys
-  private controller!: Controller
+  private controller?: Controller
   private PLAYER_VELOCITY_WALK = 200
   private PLAYER_WALK_TO_RUN_TIME_IN_MS = 500
   private PLAYER_VELOCITY_RUN_FACTOR = 2
@@ -33,7 +33,7 @@ export default class Player {
     y: number,
     scene: Phaser.Scene,
     cursor: Phaser.Types.Input.Keyboard.CursorKeys,
-    controller: Controller,
+    controller?: Controller,
   ): void => {
     this.player = scene.physics.add.sprite(x, y, this.name).setBounce(0)
     const body = this.player.body as Phaser.Physics.Arcade.Body
@@ -80,7 +80,7 @@ export default class Player {
     this.changePlayerDirection(0, 0, 0)
   }
 
-  public getPlayer = () => this.player
+  public getSprite = () => this.player
 
   private changePlayerDirection = (
     velocityX: number,
@@ -178,10 +178,10 @@ export default class Player {
   }
 
   private updatePointerPosition = (): void => {
-    this.pointerRight = this.controller.isMovingEast()
-    this.pointerLeft = this.controller.isMovingWest()
-    this.pointerUp = this.controller.isMovingNorth()
-    this.pointerDown = this.controller.isMovingSouth()
+    this.pointerRight = this.controller?.isMovingEast() ?? false
+    this.pointerLeft = this.controller?.isMovingWest() ?? false
+    this.pointerUp = this.controller?.isMovingNorth() ?? false
+    this.pointerDown = this.controller?.isMovingSouth() ?? false
   }
 
   private createFrameSet = (

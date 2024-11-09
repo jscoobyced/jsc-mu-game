@@ -3,6 +3,7 @@ import { JoyStickKeys } from '../models/controller'
 
 export default class Controller {
   private joystick!: VirtualJoystick
+  private radius = 100
   private isUp = false
   private isDown = false
   private isLeft = false
@@ -11,11 +12,11 @@ export default class Controller {
   constructor(scene: Phaser.Scene) {
     const { height } = scene.game.canvas
     this.joystick = new VirtualJoystick(scene, {
-      x: 110,
-      y: height - 110,
+      x: this.radius + 10,
+      y: height - this.radius - 10,
       radius: 100,
-      base: scene.add.circle(0, 0, 100, 0x888888),
-      thumb: scene.add.circle(0, 0, 50, 0xcccccc),
+      base: scene.add.circle(0, 0, this.radius, 0x888888),
+      thumb: scene.add.circle(0, 0, this.radius / 2, 0xcccccc),
     })
     this.joystick.on('update', this.updateController)
   }
