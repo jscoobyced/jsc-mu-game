@@ -91,20 +91,22 @@ jobs:
 
       - name: Run Tests
         run: |
-          mkdir -p ${{ env.SRC_PATH }}/coverage
+          mkdir -p ${{ env.SRC_PATH }}coverage
           HAVE_TEST=$(find ${{ env.SRC_PATH }} -name "*.test.ts" | wc -l)
-          echo "HAVE_TEST=${HAVE_TEST}" > ${{ env.SRC_PATH }}coverage/have_test.txt
           if [ $HAVE_TEST -ne 0 ];
           then
             yarn --cwd ${{ env.SRC_PATH }} test --coverage
           fi
+          echo "HAVE_TEST=${HAVE_TEST}" > ${{ env.SRC_PATH }}coverage/have_test.txt
+          ls -al ${{ env.SRC_PATH }}coverage/
+          cat ${{ env.SRC_PATH }}coverage/have_test.txt
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report-${{ env.IMAGE_NAME }}
           retention-days: 1
-          path: ${{ env.SRC_PATH }}/coverage/
+          path: ${{ env.SRC_PATH }}coverage/
 
   upload-coverage:
     name: Upload Coverage to Codecov
