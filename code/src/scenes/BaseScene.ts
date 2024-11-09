@@ -13,7 +13,7 @@ export default class BaseScene extends Phaser.Scene {
     super(levelHelper.getLevelName(level))
   }
 
-  protected doPreload = (withPlayer: boolean = false) => {
+  protected doPreload = (withPlayer = false) => {
     if (this.input.keyboard)
       this.cursor = this.input.keyboard.createCursorKeys()
     if (withPlayer) {
