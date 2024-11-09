@@ -1,8 +1,8 @@
-import Phaser from 'phaser';
+import Phaser from 'phaser'
 
-import getGeneralSettings from '../models/general';
+import getGeneralSettings from '../models/general'
 
-const generalSettings = getGeneralSettings();
+const generalSettings = getGeneralSettings()
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -24,6 +24,6 @@ const config: Phaser.Types.Core.GameConfig = {
       },
     },
   },
-};
+}
 
-export default config;
+export default config

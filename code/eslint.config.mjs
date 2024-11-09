@@ -1,5 +1,5 @@
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
+import tseslint from '@typescript-eslint/eslint-plugin'
+import tsParser from '@typescript-eslint/parser'
 
 export default [
   {
@@ -23,4 +23,4 @@ export default [
       ...tseslint.configs['stylistic-type-checked'].rules,
     },
   },
-];
+]

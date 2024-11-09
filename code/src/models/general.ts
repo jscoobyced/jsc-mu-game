@@ -1,17 +1,17 @@
-import general from './general.json';
+import general from './general.json'
 
 export interface GeneralSettings {
-  width: number;
-  height: number;
-  backgroundColor: string;
+  width: number
+  height: number
+  backgroundColor: string
   baseUrls: {
-    images: string;
-    audio: string;
-    json: string;
-    fonts: string;
-  };
+    images: string
+    audio: string
+    json: string
+    fonts: string
+  }
 }
 
-const getGeneralSettings = () => general;
+const getGeneralSettings = () => general
 
-export default getGeneralSettings;
+export default getGeneralSettings
