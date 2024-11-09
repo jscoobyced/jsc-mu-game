@@ -29,6 +29,7 @@ export default class IntroScene extends BaseScene {
     })
 
     this.input.on('pointerdown', () => {
+      this.scale.startFullscreen()
       this.goToLevel(1)
     })
   }
