@@ -30,6 +30,8 @@ export default class IntroScene extends BaseScene {
 
     this.input.on('pointerdown', () => {
       this.scale.startFullscreen()
+      // @ts-ignore
+      // window.openFullScreen()
       this.goToLevel(1)
     })
   }

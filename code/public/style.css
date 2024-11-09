@@ -9,7 +9,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+body,
+#game {
   margin: 0 0;
   display: flex;
   min-width: 320px;

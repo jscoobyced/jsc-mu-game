@@ -28,24 +28,16 @@
   </head>
   <body>
     <script type="module" src="/src/main.ts"></script>
-    <button onclick="openFullscreen();">Fullscreen</button>
     <script>
-      const openFullscreen = () => {
-        const element = document.getElementsByTagName('canvas')[0]
-        if (element.requestFullscreen) {
-          element.requestFullscreen()
-          // @ts-ignore
-        } else if (element.webkitRequestFullscreen) {
-          /* Safari */
-          // @ts-ignore
-          element.webkitRequestFullscreen()
-          // @ts-ignore
-        } else if (elem.msRequestFullscreen) {
-          /* IE11 */
-          // @ts-ignore
-          element.msRequestFullscreen()
+      const openFullScreen = async () => {
+        try {
+          const game = document.documentElement
+          await game.requestFullscreen()
+        } catch (err) {
+          console.error(err.name, err.message)
         }
       }
+      window.openFullScreen = openFullScreen
     </script>
   </body>
 </html>
