@@ -28,16 +28,5 @@
   </head>
   <body>
     <script type="module" src="/src/main.ts"></script>
-    <script>
-      const openFullScreen = async () => {
-        try {
-          const game = document.documentElement
-          await game.requestFullscreen()
-        } catch (err) {
-          console.error(err.name, err.message)
-        }
-      }
-      window.openFullScreen = openFullScreen
-    </script>
   </body>
 </html>
