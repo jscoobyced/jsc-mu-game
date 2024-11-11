@@ -7,6 +7,6 @@ export const getApplicationData = () => {
     return window.jscMumuData as IApplicationData
   }
   return {
-    appVersion: '0.0.0',
+    appVersion: 'v0.0.0',
   }
 }

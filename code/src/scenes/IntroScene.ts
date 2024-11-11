@@ -31,9 +31,9 @@ export default class IntroScene extends BaseScene {
       repeat: -1,
     })
     this.add.text(
-      this.game.canvas.width - 80,
+      this.game.canvas.width - 100,
       this.general.height - 40,
-      `v${this.applicationData.appVersion}`,
+      this.applicationData.appVersion,
       {
         fontFamily: this.general.font,
         fontSize: `24px`,
