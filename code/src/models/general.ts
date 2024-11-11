@@ -3,6 +3,7 @@ import general from './general.json'
 export interface GeneralSettings {
   width: number
   height: number
+  font: string
   backgroundColor: string
   baseUrls: {
     images: string

@@ -1,8 +1,11 @@
+import { getApplicationData } from '../common/applicationData'
 import { GeneralSettings } from '../models/general'
+import { IApplicationData } from '../models/IApplicationData'
 import BaseScene from './BaseScene'
 
 export default class IntroScene extends BaseScene {
   private general!: GeneralSettings
+  private applicationData: IApplicationData = getApplicationData()
   constructor() {
     super(0)
     this.general = this.getGeneralConfig()
@@ -27,6 +30,16 @@ export default class IntroScene extends BaseScene {
       yoyo: true,
       repeat: -1,
     })
+    this.add.text(
+      this.game.canvas.width - 80,
+      this.general.height - 40,
+      `v${this.applicationData.appVersion}`,
+      {
+        fontFamily: this.general.font,
+        fontSize: `24px`,
+        color: 'brown',
+      },
+    )
 
     this.input.on('pointerup', () => {
       this.scale.startFullscreen()

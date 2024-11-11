@@ -1,5 +1,5 @@
 import VirtualJoystick from 'phaser3-rex-plugins/plugins/virtualjoystick'
-import { JoyStickKeys } from '../models/controller'
+import { JoyStickKeys } from '../models/IController'
 
 export default class Controller {
   private joystick!: VirtualJoystick

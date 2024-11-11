@@ -1,6 +1,7 @@
 {
   "width": 1024,
   "height": 768,
+  "font": "MumuFont",
   "backgroundColor": "#cedced",
   "baseUrls": {
     "images": "assets/images",
