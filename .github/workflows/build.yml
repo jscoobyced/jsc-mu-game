@@ -183,4 +183,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             VITE_APP_NAME=${{ env.IMAGE_TITLE }}
-            VITTE_APP_VERSION=${{ github.ref_name}}
+            VITE_APP_VERSION=${{ github.ref_name}}
