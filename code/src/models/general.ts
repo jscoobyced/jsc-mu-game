@@ -4,6 +4,10 @@ export interface GeneralSettings {
   width: number
   height: number
   font: string
+  tile: {
+    width: number
+    height: number
+  }
   backgroundColor: string
   baseUrls: {
     images: string

@@ -10,6 +10,6 @@ then
 fi
 
 pushd code
-echo "Running tests"
-docker-compose run --rm node yarn --cwd /app/ test${WITH_COVERAGE}
+echo "Running lint"
+docker-compose run --rm node yarn --cwd /app/ lint --fix
 popd

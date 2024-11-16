@@ -1,6 +1,10 @@
 {
   "width": 1024,
   "height": 768,
+  "tile": {
+    "width": 64,
+    "height": 64
+  },
   "font": "MumuFont",
   "backgroundColor": "#cedced",
   "baseUrls": {
