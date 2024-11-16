@@ -3,32 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta property="fb:app_id" content="4141473662601557" />
+    <meta property="fb:app_id" content="%VITE_FACEBOOK_APP_ID%" />
     <meta property="og:title" content="%VITE_APP_NAME%" />
-    <meta
-      property="og:description"
-      content="Live your life as Mumu, the heroic adventurer, to defeat the evil Maginta Llennaspom."
-    />
+    <meta property="og:description" content="%VITE_DESCRIPTION%" />
     <meta property="og:type" content="game" />
-    <meta property="og:url" content="https://mumu-adventures.rochefolle.net" />
+    <meta property="og:url" content="%VITE_APP_URL%" />
     <meta property="og:site_name" content="%VITE_APP_NAME%" />
-    <meta
-      property="og:image"
-      content="https://mumu-adventures.rochefolle.net/images/mumu-adventures-ad.png"
-    />
+    <meta property="og:image" content="%VITE_APP_IMAGE%" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link media="all" rel="stylesheet" href="style.css" />
-    <link
-      rel="preload"
-      as="font"
-      href="assets/fonts/mumu.ttf"
-      type="font/ttf"
-    />
     <title>%VITE_APP_NAME%</title>
   </head>
   <body>
     <script>
-      window.jscMumuData = {
+      window.jscAppData = {
         appVersion: '%VITE_APP_VERSION%',
       }
     </script>

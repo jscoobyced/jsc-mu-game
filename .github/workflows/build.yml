@@ -149,6 +149,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set environment variable
+        run: |
+          if [ -f ${{ env.SRC_PATH }}/.env.production ]; then
+            cat ${{ env.SRC_PATH }}/.env.production >> $GITHUB_ENV
+          else
+            cat ${{ env.SRC_PATH }}/.env.example >> $GITHUB_ENV
+          fi
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
@@ -184,3 +192,7 @@ jobs:
           build-args: |
             VITE_APP_NAME=${{ env.IMAGE_TITLE }}
             VITE_APP_VERSION=${{ github.ref_name}}
+            VITE_FACEBOOK_APP_ID=${{ env.VITE_FACEBOOK_APP_ID }}
+            VITE_DESCRIPTION=${{ env.VITE_DESCRIPTION }}
+            VITE_APP_URL=${{ env.VITE_APP_URL }}
+            VITE_APP_IMAGE=${{ env.VITE_APP_IMAGE }}
