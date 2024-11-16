@@ -1,13 +1,7 @@
 {
-    "Map/SizeTest": {
-        "height": 4300,
-        "width": 2
-    },
-    "activeFile": "level-one-1x1-map.tmx",
     "expandedProjectPaths": [
         "."
     ],
-    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "/home/cedric/workspaces/jsc-mu-game/code/public/assets/json/main-tiles.tsx": {
             "scaleInDock": 1,
@@ -23,7 +17,7 @@
         },
         "level-one-1x1-map.tmx": {
             "scale": 0.853515625,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
                 "x": 512.0000000000001,
                 "y": 383.7070938215103
@@ -42,29 +36,14 @@
             "scaleInEditor": 1
         }
     },
-    "last.exportedFilePath": "/home/cedric/workspaces/jsc-mu-game/code/public/assets/json",
-    "last.imagePath": "/home/cedric/workspaces/jsc-mu-game/assets/Map",
-    "map.height": 12,
-    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
-    "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 64,
-    "map.tileWidth": 64,
-    "map.width": 16,
     "openFiles": [
         "level-one-1x1-map.tmx"
     ],
-    "project": "jsc-mu-game.tiled-project",
-    "property.type": "bool",
     "recentFiles": [
         "level-one-1x1-map.tmx",
         "level-one-map.tmx",
         "/home/cedric/workspaces/jsc-mu-game/code/public/assets/json/main-tiles.tsx",
         "jsc-mu-game.tmx",
         "main-tiles.tsx"
-    ],
-    "tileset.lastUsedFormat": "tsx",
-    "tileset.tileSize": {
-        "height": 64,
-        "width": 64
-    }
+    ]
 }

@@ -5,3 +5,4 @@ node_modules
 # production
 dist
 coverage
+code/public/assets/Map
