@@ -11,5 +11,5 @@ fi
 
 pushd code
 echo "Running lint"
-docker-compose run --rm node yarn --cwd /app/ lint --fix
+$DOCKER_COMPOSE run --rm node yarn --cwd /app/ lint --fix
 popd

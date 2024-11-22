@@ -11,5 +11,5 @@ fi
 
 pushd code
 echo "Running tests"
-docker-compose run --rm node yarn --cwd /app/ test${WITH_COVERAGE}
+$DOCKER_COMPOSE run --rm node yarn --cwd /app/ test${WITH_COVERAGE}
 popd

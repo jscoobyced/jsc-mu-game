@@ -36,18 +36,18 @@ build_web() {
     # Install dependencies
     if [ "$RUN_FILES" != "" ]; then
         echo "    📦   Installing dependencies"
-        docker-compose run --rm node yarn --cwd /app/ add $RUN_FILES > /dev/null
+        $DOCKER_COMPOSE run --rm node yarn --cwd /app/ add $RUN_FILES > /dev/null
     fi
     # Install dev dependencies
     if [ "$DEV_FILES" != "" ]; then
         echo "    📦   Installing dev dependencies"
-        docker-compose run --rm node yarn --cwd /app/ add -D $DEV_FILES > /dev/null
+        $DOCKER_COMPOSE run --rm node yarn --cwd /app/ add -D $DEV_FILES > /dev/null
     fi
 
     # Install dev test dependencies
     if [ "Y" = "$INCLUDE_TEST" ] && [ "$DEV_TEST_FILES" != "" ]; then
         echo "    📦   Installing dev test dependencies"
-        docker-compose run --rm node yarn --cwd /app/ add -D $DEV_TEST_FILES > /dev/null
+        $DOCKER_COMPOSE run --rm node yarn --cwd /app/ add -D $DEV_TEST_FILES > /dev/null
     fi
     popd
 }

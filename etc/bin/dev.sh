@@ -3,5 +3,5 @@
 source ./etc/bin/source.sh
 
 pushd code
-docker-compose run --rm -p 5173:5173 node yarn --cwd /app/ dev
+$DOCKER_COMPOSE run --rm -p 5173:5173 node yarn --cwd /app/ dev
 popd

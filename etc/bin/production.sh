@@ -2,4 +2,4 @@
 
 source ./etc/bin/source.sh
 
-docker-compose up production
+$DOCKER_COMPOSE up production
