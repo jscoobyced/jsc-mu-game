@@ -1,10 +1,10 @@
+[![codecov](https://codecov.io/gh/jscoobyced/jsc-mu-game/graph/badge.svg?token=F75QPGEUI3)](https://codecov.io/gh/jscoobyced/jsc-mu-game)
+
 # Mumu's Adventures 🕹️
 
 ![Mumu's Adventures](/code/public/assets/images/mumu-adventures.png)
 
 Live your life as Mumu, the heroic adventurer, to defeat the evil Maginta Llennaspom.
-
-[![codecov](https://codecov.io/gh/jscoobyced/jsc-mu-game/graph/badge.svg?token=F75QPGEUI3)](https://codecov.io/gh/jscoobyced/jsc-mu-game)
 
 # Installation
 
