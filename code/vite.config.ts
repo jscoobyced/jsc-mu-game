@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
@@ -7,6 +7,16 @@ export default defineConfig({
     environment: 'jsdom',
     coverage: {
       extension: ['ts'],
+      include: ['src/**/*.ts'],
+      exclude: [
+        'src/**/*.d.ts',
+        'src/main.ts',
+        'src/common/controller.ts',
+        'src/common/mapManager.ts',
+        'src/config/*.ts',
+        'src/scenes/*.ts',
+        'src/sprites/*.ts',
+      ],
     },
   },
-});
+})
