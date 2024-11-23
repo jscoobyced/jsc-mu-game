@@ -6,6 +6,7 @@ import {
 } from '../common/frameSetManager'
 import { SPRITE_VELOCITY_RUN_FACTOR } from '../models/frameSet'
 import getGeneralSettings, { GeneralSettings } from '../models/general'
+import { PlayerPosition } from '../models/position'
 
 export default class Player {
   private name = 'mumu'
@@ -31,13 +32,14 @@ export default class Player {
   }
 
   create = (
-    x: number,
-    y: number,
+    position: PlayerPosition,
     scene: Phaser.Scene,
     cursor: Phaser.Types.Input.Keyboard.CursorKeys,
     controller?: Controller,
   ): void => {
-    this.player = scene.physics.add.sprite(x, y, this.name).setBounce(0)
+    this.player = scene.physics.add
+      .sprite(position.x, position.y, this.name)
+      .setBounce(0)
     const body = this.player.body as Phaser.Physics.Arcade.Body
     body.setCollideWorldBounds(true, 0, 0, true)
     this.createFrameSets(scene)

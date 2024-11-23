@@ -1,8 +1,10 @@
 import Phaser from 'phaser'
 import Controller from '../common/controller'
+import { isMobile } from '../common/deviceHelper'
 import { GeneralSettings } from '../models/general'
 import general from '../models/general.json'
 import levelHelper from '../models/level'
+import { PlayerPosition } from '../models/position'
 import Player from '../sprites/Player'
 
 export default class BaseScene extends Phaser.Scene {
@@ -13,6 +15,10 @@ export default class BaseScene extends Phaser.Scene {
     super(levelHelper.getLevelName(level))
   }
 
+  /**
+   * Preload the necessary assets
+   * @param withPlayer Indicates if need to include the default Player
+   */
   protected doPreload = (withPlayer = false) => {
     if (this.input.keyboard)
       this.cursor = this.input.keyboard.createCursorKeys()
@@ -22,39 +28,57 @@ export default class BaseScene extends Phaser.Scene {
     }
   }
 
-  protected doCreate = (position: { x: number; y: number }) => {
+  /**
+   * Create the content of the canvas
+   * @param playerPosition The position to place the player
+   */
+  protected doCreate = (playerPosition: PlayerPosition = { x: 0, y: 0 }) => {
     if (this.player) {
       this.player.create(
-        position.x,
-        position.y,
+        playerPosition,
         this,
         this.cursor,
-        this.isMobile() ? new Controller(this.scene.scene) : undefined,
+        isMobile(this.game) ? new Controller(this) : undefined,
       )
-      const sprite = this.player.getSprite()
-      if (sprite.body)
-        sprite.body.world.on('worldbounds', this.playerCollidingWithWorld)
     }
   }
 
+  /**
+   * Delegates the updates to all sprites
+   * @param time The update time
+   */
   protected doUpdate = (time: number) => {
     this.player?.update(time)
   }
 
+  /**
+   * Go to a new scene of type Level
+   * @param level The level to go to
+   */
   protected goToLevel = (level: number) => {
     this.scene.start(levelHelper.getLevelName(level))
   }
 
+  /**
+   * Simple accessor to the general configuration of the game
+   * @returns the general configuration of the game
+   */
   protected getGeneralConfig = (): GeneralSettings => general
 
-  protected isMobile = () =>
-    this.game.device.os.android ||
-    this.game.device.os.iPad ||
-    this.game.device.os.iPhone
-
+  /**
+   * Simple accessor to the Player object
+   * @returns The Player object
+   */
   protected getPlayer = () => this.player
 
-  private playerCollidingWithWorld = () => {
-    // In case want to have high level event.
+  /**
+   * Allows to specify a collision function when the Player collids with boundaries of the world
+   * @param collisionFunction
+   */
+  protected collidePlayerWithWorld = (collisionFunction: Function) => {
+    if (this.player) {
+      const sprite = this.player.getSprite()
+      if (sprite.body) sprite.body.world.on('worldbounds', collisionFunction)
+    }
   }
 }
