@@ -1,17 +1,19 @@
 import Phaser from 'phaser'
 import Controller from '../common/controller'
-import { withLeadingZero } from '../common/formatter'
+import {
+  createIdleFrameSet,
+  createMovingFrameSets,
+} from '../common/frameSetManager'
+import { SPRITE_VELOCITY_RUN_FACTOR } from '../models/frameSet'
 import getGeneralSettings, { GeneralSettings } from '../models/general'
 
 export default class Player {
-  private name = 'Mumu'
+  private name = 'mumu'
   private player!: Phaser.Physics.Arcade.Sprite
   private cursor!: Phaser.Types.Input.Keyboard.CursorKeys
   private controller?: Controller
   private PLAYER_VELOCITY_WALK = 200
   private PLAYER_WALK_TO_RUN_TIME_IN_MS = 500
-  private PLAYER_VELOCITY_RUN_FACTOR = 2
-  private PLAYER_FRAMERATE = 6
   private playerDirection = 'idle'
   private pointerRight = false
   private pointerLeft = false
@@ -23,8 +25,8 @@ export default class Player {
   preload = (scene: Phaser.Scene): void => {
     scene.load.atlas(
       this.name,
-      `${this.general.baseUrls.images}/mumu.png`,
-      `${this.general.baseUrls.json}/mumu.json`,
+      `${this.general.baseUrls.images}/${this.name}.png`,
+      `${this.general.baseUrls.json}/${this.name}.json`,
     )
   }
 
@@ -107,7 +109,7 @@ export default class Player {
     const longWalk = time - this.walkTime > this.PLAYER_WALK_TO_RUN_TIME_IN_MS
 
     if (direction === 'idle' && this.playerDirection !== direction) {
-      this.playerDirection = direction
+      this.playerDirection = `idle`
       this.player.play(this.playerDirection)
     } else {
       const currentDirection = this.playerDirection
@@ -129,52 +131,19 @@ export default class Player {
       }
     }
     if (longWalk && direction != 'idle') {
-      isRunning = this.PLAYER_VELOCITY_RUN_FACTOR
+      isRunning = SPRITE_VELOCITY_RUN_FACTOR
     }
 
     this.player.setVelocity(velocityX * isRunning, velocityY * isRunning)
   }
 
   private createFrameSets = (scene: Phaser.Scene) => {
-    scene.anims.create(
-      this.createFrameSet('walk', 'right', this.PLAYER_FRAMERATE),
-    )
-    scene.anims.create(
-      this.createFrameSet(
-        'run',
-        'right',
-        this.PLAYER_FRAMERATE * this.PLAYER_VELOCITY_RUN_FACTOR,
-      ),
-    )
-    scene.anims.create(
-      this.createFrameSet('walk', 'left', this.PLAYER_FRAMERATE),
-    )
-    scene.anims.create(
-      this.createFrameSet(
-        'run',
-        'left',
-        this.PLAYER_FRAMERATE * this.PLAYER_VELOCITY_RUN_FACTOR,
-      ),
-    )
-    scene.anims.create(
-      this.createFrameSet('walk', 'down', this.PLAYER_FRAMERATE),
-    )
-    scene.anims.create(
-      this.createFrameSet(
-        'run',
-        'down',
-        this.PLAYER_FRAMERATE * this.PLAYER_VELOCITY_RUN_FACTOR,
-      ),
-    )
-    scene.anims.create(this.createFrameSet('walk', 'up', this.PLAYER_FRAMERATE))
-    scene.anims.create(
-      this.createFrameSet(
-        'run',
-        'up',
-        this.PLAYER_FRAMERATE * this.PLAYER_VELOCITY_RUN_FACTOR,
-      ),
-    )
-    scene.anims.create(this.createFrameSet('', 'idle', 1, 1))
+    const frameSets = createMovingFrameSets(this.name)
+    for (let frameSet of frameSets) {
+      scene.anims.create(frameSet)
+    }
+
+    scene.anims.create(createIdleFrameSet(this.name))
   }
 
   private updatePointerPosition = (): void => {
@@ -182,27 +151,5 @@ export default class Player {
     this.pointerLeft = this.controller?.isMovingWest() ?? false
     this.pointerUp = this.controller?.isMovingNorth() ?? false
     this.pointerDown = this.controller?.isMovingSouth() ?? false
-  }
-
-  private createFrameSet = (
-    move: string,
-    direction: string,
-    frameRate: number,
-    frameNumber = 3,
-  ) => {
-    const frames = []
-    for (let i = 1; i <= frameNumber; i++) {
-      const frameNumber = withLeadingZero(i)
-      frames.push({
-        key: this.name,
-        frame: `${direction}-${frameNumber}`,
-      })
-    }
-    return {
-      key: `${move}${direction}`,
-      frames,
-      frameRate,
-      repeat: -1,
-    }
   }
 }
