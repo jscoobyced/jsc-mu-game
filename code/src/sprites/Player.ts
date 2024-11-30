@@ -27,6 +27,7 @@ export default class Player {
 
   constructor(name: string) {
     this.name = name
+    this.playerDirection = `${this.name}-idle`
   }
 
   preload = (scene: Phaser.Scene): void => {
@@ -95,7 +96,7 @@ export default class Player {
   ) => {
     let move = 'walk'
     let isRunning = 1
-    let direction = 'idle'
+    let direction = `idle`
     if (velocityX === 0) {
       if (velocityY > 0) {
         direction = `down`
@@ -111,14 +112,15 @@ export default class Player {
     }
 
     const longWalk = time - this.walkTime > this.PLAYER_WALK_TO_RUN_TIME_IN_MS
-
-    if (direction === 'idle' && this.playerDirection !== direction) {
-      this.playerDirection = `idle`
+    if (direction === 'idle' && !this.playerDirection.includes(direction)) {
+      this.playerDirection = `${this.name}-idle`
       this.player.play(this.playerDirection)
     } else {
       const currentDirection = this.playerDirection
         .replace('walk', '')
         .replace('run', '')
+        .replace(this.name, '')
+        .replaceAll('-', '')
       if (
         currentDirection === direction &&
         this.playerDirection.includes('walk') &&
@@ -126,15 +128,15 @@ export default class Player {
       ) {
         // Walking in the same direction for more than PLAYER_WALK_TO_RUN_TIME_IN_MS
         move = 'run'
-        this.playerDirection = `${move}${direction}`
+        this.playerDirection = `${this.name}-${move}-${direction}`
         this.player.play(this.playerDirection)
       } else if (currentDirection !== direction) {
         this.walkTime = time
-        this.playerDirection = `${move}${direction}`
+        this.playerDirection = `${this.name}-${move}-${direction}`
         this.player.play(this.playerDirection)
       }
     }
-    if (longWalk && direction != 'idle') {
+    if (longWalk && !direction.includes('idle')) {
       isRunning = SPRITE_VELOCITY_RUN_FACTOR
     }
 
@@ -147,7 +149,6 @@ export default class Player {
     for (let frameSet of frameSets) {
       scene.anims.create(frameSet)
     }
-
     scene.anims.create(createIdleFrameSet(this.name))
     frameSetCreated = true
   }

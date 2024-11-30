@@ -10,7 +10,7 @@
       "scale": 1,
       "frames": [
         {
-          "filename": "left-01",
+          "filename": "mumu-left-01",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -35,7 +35,7 @@
           }
         },
         {
-          "filename": "left-02",
+          "filename": "mumu-left-02",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -60,7 +60,7 @@
           }
         },
         {
-          "filename": "left-03",
+          "filename": "mumu-left-03",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -85,7 +85,7 @@
           }
         },
         {
-          "filename": "idle-01",
+          "filename": "mumu-idle-01",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -110,7 +110,7 @@
           }
         },
         {
-          "filename": "idle-02",
+          "filename": "mumu-idle-02",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -135,7 +135,7 @@
           }
         },
         {
-          "filename": "idle-03",
+          "filename": "mumu-idle-03",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -160,7 +160,7 @@
           }
         },
         {
-          "filename": "right-01",
+          "filename": "mumu-right-01",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -185,7 +185,7 @@
           }
         },
         {
-          "filename": "right-02",
+          "filename": "mumu-right-02",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -210,7 +210,7 @@
           }
         },
         {
-          "filename": "right-03",
+          "filename": "mumu-right-03",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -235,7 +235,7 @@
           }
         },
         {
-          "filename": "up-01",
+          "filename": "mumu-up-01",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -260,7 +260,7 @@
           }
         },
         {
-          "filename": "up-02",
+          "filename": "mumu-up-02",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -285,7 +285,7 @@
           }
         },
         {
-          "filename": "up-03",
+          "filename": "mumu-up-03",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -310,7 +310,7 @@
           }
         },
         {
-          "filename": "down-01",
+          "filename": "mumu-down-01",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -335,7 +335,7 @@
           }
         },
         {
-          "filename": "down-02",
+          "filename": "mumu-down-02",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {
@@ -360,7 +360,7 @@
           }
         },
         {
-          "filename": "down-03",
+          "filename": "mumu-down-03",
           "rotated": false,
           "trimmed": true,
           "sourceSize": {

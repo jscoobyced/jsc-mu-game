@@ -19,11 +19,12 @@ const createFrameSet = (
     const currentFrameNumber = withLeadingZero(i)
     frames.push({
       key: name,
-      frame: `${direction}-${currentFrameNumber}`,
+      frame: `${name}-${direction}-${currentFrameNumber}`,
     })
   }
+  const moveValue = move.length === 0 ? '' : `-${move}`
   return {
-    key: `${move}${direction}`,
+    key: `${name}${moveValue}-${direction}`,
     frames,
     frameRate,
     repeat: -1,
