@@ -4,12 +4,14 @@ import {
   createIdleFrameSet,
   createMovingFrameSets,
 } from '../common/frameSetManager'
+import { Coordinates } from '../models/coordinates'
 import { SPRITE_VELOCITY_RUN_FACTOR } from '../models/frameSet'
 import getGeneralSettings, { GeneralSettings } from '../models/general'
-import { PlayerPosition } from '../models/position'
+
+let frameSetCreated = false
 
 export default class Player {
-  private name = 'mumu'
+  private name!: string
   private player!: Phaser.Physics.Arcade.Sprite
   private cursor!: Phaser.Types.Input.Keyboard.CursorKeys
   private controller?: Controller
@@ -23,6 +25,10 @@ export default class Player {
   private walkTime = 0
   private general: GeneralSettings = getGeneralSettings()
 
+  constructor(name: string) {
+    this.name = name
+  }
+
   preload = (scene: Phaser.Scene): void => {
     scene.load.atlas(
       this.name,
@@ -32,7 +38,7 @@ export default class Player {
   }
 
   create = (
-    position: PlayerPosition,
+    position: Coordinates,
     scene: Phaser.Scene,
     cursor: Phaser.Types.Input.Keyboard.CursorKeys,
     controller?: Controller,
@@ -80,11 +86,9 @@ export default class Player {
     this.changePlayerDirection(velocityX, velocityY, time)
   }
 
-  stop = () => {
-    this.changePlayerDirection(0, 0, 0)
-  }
-
   public getSprite = () => this.player
+
+  public getPlayerDirection = () => this.playerDirection
 
   private changePlayerDirection = (
     velocityX: number,
@@ -140,12 +144,14 @@ export default class Player {
   }
 
   private createFrameSets = (scene: Phaser.Scene) => {
+    if (frameSetCreated) return
     const frameSets = createMovingFrameSets(this.name)
     for (let frameSet of frameSets) {
       scene.anims.create(frameSet)
     }
 
     scene.anims.create(createIdleFrameSet(this.name))
+    frameSetCreated = true
   }
 
   private updatePointerPosition = (): void => {

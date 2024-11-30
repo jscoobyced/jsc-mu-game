@@ -4,16 +4,9 @@ const MAIN_TILES = 'main-tiles'
 const GROUND = 'ground'
 const OBSTACLES = 'obstacles'
 
-export const createMap = (
-  level: string,
-  x: number,
-  y: number,
-  scene: Phaser.Scene,
-) => {
-  const levelName = getLevelName(level)
-
+export const createMap = (levelName: string, scene: Phaser.Scene) => {
   const map = scene.make.tilemap({
-    key: getLevelFullName(level, x, y),
+    key: levelName,
     tileWidth: getGeneralSettings().tile.width,
     tileHeight: getGeneralSettings().tile.height,
   })
@@ -32,25 +25,14 @@ export const getObstacleLayer = (
 ): Phaser.Tilemaps.TilemapLayer | undefined =>
   map.getLayer(OBSTACLES)?.tilemapLayer
 
-export const loadMapImage = (
-  level: string,
-  x: number,
-  y: number,
-  scene: Phaser.Scene,
-) => {
-  const levelFullName = getLevelFullName(level, x, y)
-  const levelName = getLevelName(level)
+export const loadMapImage = (levelName: string, scene: Phaser.Scene) => {
+  const safeLevelName = encodeURIComponent(levelName)
   scene.load.image(
     `${levelName}-tiles`,
-    `${getGeneralSettings().baseUrls.images}/map/${levelName}-map.png`,
+    `${getGeneralSettings().baseUrls.images}/map/${safeLevelName}-tiles.png`,
   )
   scene.load.tilemapTiledJSON(
-    levelFullName,
-    `${getGeneralSettings().baseUrls.json}/${levelFullName}.json`,
+    safeLevelName,
+    `${getGeneralSettings().baseUrls.json}/${safeLevelName}.json`,
   )
 }
-
-const getLevelName = (level: string) => `level-${level}`
-
-const getLevelFullName = (level: string, x: number, y: number) =>
-  `level-${level}-${x.toString()}x${y.toString()}`

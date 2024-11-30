@@ -7,7 +7,7 @@ export default class IntroScene extends BaseScene {
   private general!: GeneralSettings
   private applicationData: IApplicationData = getApplicationData()
   constructor() {
-    super(0)
+    super('intro')
     this.general = this.getGeneralConfig()
   }
 
@@ -43,7 +43,7 @@ export default class IntroScene extends BaseScene {
 
     this.input.on('pointerup', () => {
       this.scale.startFullscreen()
-      this.goToLevel(1)
+      this.goToLevel('level-one')
     })
   }
 }
