@@ -14,7 +14,7 @@ export default defineConfig({
         'src/common/controller.ts',
         'src/common/mapManager.ts',
         'src/config/*.ts',
-        'src/scenes/*.ts',
+        'src/scenes/**/*.ts',
         'src/sprites/*.ts',
       ],
     },

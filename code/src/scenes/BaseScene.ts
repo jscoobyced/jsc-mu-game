@@ -10,7 +10,7 @@ import Player from '../sprites/Player'
 export default class BaseScene extends Phaser.Scene {
   private player?: Player
   protected cursor!: Phaser.Types.Input.Keyboard.CursorKeys
-  private levelName!: string
+  protected levelName!: string
 
   public constructor(levelName: string) {
     super(levelName)
@@ -39,6 +39,7 @@ export default class BaseScene extends Phaser.Scene {
    */
   protected doCreate = (playerPosition: Coordinates) => {
     const map = createMap(this.levelName, this)
+    if (!map) return
     if (this.player) {
       this.player.create(
         playerPosition,

@@ -1,16 +1,22 @@
 import getGeneralSettings from '../models/general'
+import { getLevelInfo } from '../models/level'
 
-const MAIN_TILES = 'main-tiles'
 const GROUND = 'ground'
 const OBSTACLES = 'obstacles'
 
 export const createMap = (levelName: string, scene: Phaser.Scene) => {
+  const levelInfo = getLevelInfo(levelName)
+  if (!levelInfo) return
+
   const map = scene.make.tilemap({
-    key: levelName,
+    key: levelInfo.name,
     tileWidth: getGeneralSettings().tile.width,
     tileHeight: getGeneralSettings().tile.height,
   })
-  const tiles = map.addTilesetImage(MAIN_TILES, `${levelName}-tiles`)
+  const tiles = map.addTilesetImage(
+    `${levelInfo.tiles}-tiles`,
+    `${levelInfo.name}-tiles`,
+  )
   if (tiles) {
     map.createLayer(GROUND, tiles)
     const obstaclesLayer = map.createLayer(OBSTACLES, tiles)
@@ -26,13 +32,14 @@ export const getObstacleLayer = (
   map.getLayer(OBSTACLES)?.tilemapLayer
 
 export const loadMapImage = (levelName: string, scene: Phaser.Scene) => {
-  const safeLevelName = encodeURIComponent(levelName)
+  const levelInfo = getLevelInfo(levelName)
+  if (!levelInfo) return
   scene.load.image(
-    `${levelName}-tiles`,
-    `${getGeneralSettings().baseUrls.images}/map/${safeLevelName}-tiles.png`,
+    `${levelInfo.name}-tiles`,
+    `${getGeneralSettings().baseUrls.images}/map/${levelInfo.tiles}-tiles.png`,
   )
   scene.load.tilemapTiledJSON(
-    safeLevelName,
-    `${getGeneralSettings().baseUrls.json}/${safeLevelName}.json`,
+    levelInfo.name,
+    `${getGeneralSettings().baseUrls.json}/${levelInfo.name}.json`,
   )
 }

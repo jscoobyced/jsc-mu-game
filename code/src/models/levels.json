@@ -1,0 +1,12 @@
+[
+  {
+    "name": "level-one",
+    "tiles": "countryside",
+    "player": {
+      "position": {
+        "x": 96,
+        "y": 192
+      }
+    }
+  }
+]

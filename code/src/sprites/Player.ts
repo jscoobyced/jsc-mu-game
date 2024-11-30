@@ -46,8 +46,6 @@ export default class Player {
     this.player = scene.physics.add
       .sprite(position.x, position.y, this.name)
       .setBounce(0)
-    const body = this.player.body as Phaser.Physics.Arcade.Body
-    body.setCollideWorldBounds(true, 0, 0, true)
     this.createFrameSets(scene)
     this.player.play(this.playerDirection)
     this.cursor = cursor

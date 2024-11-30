@@ -1,3 +1,4 @@
+import { getLevelInfo } from '../models/level'
 import BaseScene from './BaseScene'
 
 export default class BaseSceneWithPlayer extends BaseScene {
@@ -6,7 +7,9 @@ export default class BaseSceneWithPlayer extends BaseScene {
   }
 
   create() {
-    this.doCreate({ x: 96, y: 32 })
+    const levelInfo = getLevelInfo(this.levelName)
+    if (!levelInfo) return
+    this.doCreate(levelInfo.player.position)
     this.collidePlayerWithWorld(this.collideWithWorld)
   }
 
