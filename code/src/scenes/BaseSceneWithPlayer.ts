@@ -1,3 +1,4 @@
+import { getCurrentStatus } from '../common/storage'
 import { getLevelInfo } from '../models/level'
 import BaseScene from './BaseScene'
 
@@ -7,9 +8,16 @@ export default class BaseSceneWithPlayer extends BaseScene {
   }
 
   create() {
-    const levelInfo = getLevelInfo(this.levelName)
-    if (!levelInfo) return
-    this.doCreate(levelInfo.player.position)
+    const currentStatus = getCurrentStatus()
+    let position = { x: 0, y: 0 }
+    if (currentStatus) {
+      position = currentStatus.player.position
+    } else {
+      const levelInfo = getLevelInfo(this.levelName)
+      if (!levelInfo) return
+      position = levelInfo.player.position
+    }
+    this.doCreate(position)
     this.collidePlayerWithWorld(this.collideWithWorld)
   }
 

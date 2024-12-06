@@ -2,9 +2,11 @@ import Phaser from 'phaser'
 import Controller from '../common/controller'
 import { isMobile } from '../common/deviceHelper'
 import { createMap, getObstacleLayer, loadMapImage } from '../common/mapManager'
+import { saveCurrentStatus } from '../common/storage'
 import { Coordinates } from '../models/coordinates'
 import { GeneralSettings } from '../models/general'
 import general from '../models/general.json'
+import { CurrentStatusData } from '../models/saved'
 import NpcPlayer from '../sprites/NpcPlayer'
 import Player from '../sprites/Player'
 
@@ -21,7 +23,6 @@ export default class BaseScene extends Phaser.Scene {
 
   /**
    * Preload the necessary assets
-   * @param levelInfo The level information to load the assets
    * @param withPlayer Indicates if need to include the default Player
    * @param playerName Indicates the name of the player, used to load assets
    */
@@ -68,6 +69,19 @@ export default class BaseScene extends Phaser.Scene {
   protected doUpdate = (time: number) => {
     this.player?.update(time)
     this.npcPlayer.update(time)
+    const playerSprite = this.player?.getSprite()
+    if (playerSprite) {
+      const currentStatus: CurrentStatusData = {
+        levelName: this.levelName,
+        player: {
+          position: {
+            x: playerSprite.x,
+            y: playerSprite.y,
+          },
+        },
+      }
+      saveCurrentStatus(currentStatus)
+    }
   }
 
   /**

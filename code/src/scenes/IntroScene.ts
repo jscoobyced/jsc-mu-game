@@ -1,4 +1,5 @@
 import { getApplicationData } from '../common/applicationData'
+import { getCurrentStatus } from '../common/storage'
 import { GeneralSettings } from '../models/general'
 import { IApplicationData } from '../models/IApplicationData'
 import BaseScene from './BaseScene'
@@ -43,7 +44,10 @@ export default class IntroScene extends BaseScene {
 
     this.input.on('pointerup', () => {
       this.scale.startFullscreen()
-      this.goToLevel('level-one')
+      const currentStatus = getCurrentStatus()
+      if (currentStatus) {
+        this.goToLevel(currentStatus.levelName)
+      } else this.goToLevel('level-one')
     })
   }
 }
