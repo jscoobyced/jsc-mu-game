@@ -54,6 +54,9 @@ export default class Player {
   }
 
   update = (time: number): void => {
+    // Hack to allow async `create` function to complete before updating
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (!this.cursor) return
     let velocityX = 0
     let velocityY = 0
     this.updatePointerPosition()

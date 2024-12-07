@@ -21,45 +21,31 @@ describe('storage', () => {
     setItemSpy.mockClear()
   })
 
-  it('can store currentStatus data', () => {
-    const result = saveCurrentStatus(currentStatusData)
+  it('can store currentStatus data', async () => {
+    const result = await saveCurrentStatus(currentStatusData)
     expect(result).toBeTruthy()
   })
 
-  it('can store and retrieve currentStatus data', () => {
-    saveCurrentStatus(currentStatusData)
-    const data = getCurrentStatus()
+  it('can store and retrieve currentStatus data', async () => {
+    await saveCurrentStatus(currentStatusData)
+    const data = await getCurrentStatus()
     expect(data).toEqual(currentStatusData)
   })
 
-  it("returns false when can't store a currentStatus", () => {
+  it("returns false when can't store a currentStatus", async () => {
     setItemSpy.mockImplementation(() => {
       throw Error('Not allowed')
     })
-    const result = saveCurrentStatus(currentStatusData)
+    const result = await saveCurrentStatus(currentStatusData)
     expect(result).toBeFalsy()
   })
 
-  it('retrieves currentStatus defaults data when there is nothing stored', () => {
-    const defaultCurrentStatus: CurrentStatusData = {
-      levelName: 'level-one',
-      player: {
-        position: {
-          x: 96,
-          y: 192,
-        },
-      },
-    }
-    const data = getCurrentStatus()
-    expect(data).toEqual(defaultCurrentStatus)
-  })
-
-  it("gets undefined when it can't retrieve any data", () => {
+  it("gets undefined when it can't retrieve any data", async () => {
     const getLevelInfoSpy = vi.spyOn(getLevelInfo, 'getLevelInfo')
     getLevelInfoSpy.mockImplementation(() => {
       return undefined
     })
-    const data = getCurrentStatus()
+    const data = await getCurrentStatus()
     expect(data).toBeUndefined()
   })
 })

@@ -7,9 +7,9 @@ export default class BaseSceneWithPlayer extends BaseScene {
     this.doPreload(true)
   }
 
-  create() {
-    const currentStatus = getCurrentStatus()
+  async create() {
     let position = { x: 0, y: 0 }
+    const currentStatus = await getCurrentStatus()
     if (currentStatus) {
       position = currentStatus.player.position
     } else {

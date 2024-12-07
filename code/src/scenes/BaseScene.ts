@@ -10,8 +10,11 @@ import { CurrentStatusData } from '../models/saved'
 import NpcPlayer from '../sprites/NpcPlayer'
 import Player from '../sprites/Player'
 
+const SAVE_PERIOD = 10000
+
 export default class BaseScene extends Phaser.Scene {
   private player?: Player
+  private lastSaved = 0
   protected cursor!: Phaser.Types.Input.Keyboard.CursorKeys
   protected levelName!: string
   private npcPlayer!: NpcPlayer
@@ -69,18 +72,23 @@ export default class BaseScene extends Phaser.Scene {
   protected doUpdate = (time: number) => {
     this.player?.update(time)
     this.npcPlayer.update(time)
-    const playerSprite = this.player?.getSprite()
-    if (playerSprite) {
-      const currentStatus: CurrentStatusData = {
-        levelName: this.levelName,
-        player: {
-          position: {
-            x: playerSprite.x,
-            y: playerSprite.y,
+    if (time - this.lastSaved > SAVE_PERIOD) {
+      this.lastSaved = time
+      const playerSprite = this.player?.getSprite()
+      if (playerSprite) {
+        const currentStatus: CurrentStatusData = {
+          levelName: this.levelName,
+          player: {
+            position: {
+              x: playerSprite.x,
+              y: playerSprite.y,
+            },
           },
-        },
+        }
+        void (async () => {
+          await saveCurrentStatus(currentStatus)
+        })()
       }
-      saveCurrentStatus(currentStatus)
     }
   }
 

@@ -44,10 +44,14 @@ export default class IntroScene extends BaseScene {
 
     this.input.on('pointerup', () => {
       this.scale.startFullscreen()
-      const currentStatus = getCurrentStatus()
-      if (currentStatus) {
-        this.goToLevel(currentStatus.levelName)
-      } else this.goToLevel('level-one')
+      let levelName = 'level-one'
+      void (async () => {
+        const currentStatus = await getCurrentStatus()
+        if (currentStatus) {
+          levelName = currentStatus.levelName
+        }
+      })()
+      this.goToLevel(levelName)
     })
   }
 }
