@@ -9,10 +9,12 @@ export default class NpcPlayer {
   private name!: string
   private player!: Phaser.Physics.Arcade.Sprite
   private playerDirection = 'idle'
+  private initialPosition!: Coordinates
   private general: GeneralSettings = getGeneralSettings()
 
-  constructor(name: string) {
+  constructor(name: string, initialPosition: Coordinates) {
     this.name = name
+    this.initialPosition = initialPosition
     this.playerDirection = `${this.name}-idle`
   }
 
@@ -24,10 +26,13 @@ export default class NpcPlayer {
     )
   }
 
-  create = (position: Coordinates, scene: Phaser.Scene): void => {
+  create = (scene: Phaser.Scene): void => {
     this.player = scene.physics.add
-      .sprite(position.x, position.y, this.name)
+      .sprite(this.initialPosition.x, this.initialPosition.y, this.name)
       .setBounce(0)
+      .setVelocity(0, 0)
+      .setImmovable()
+      .setName(this.name)
     this.createFrameSets(scene)
     this.player.play(this.playerDirection)
   }
@@ -35,6 +40,8 @@ export default class NpcPlayer {
   update = (time: number): void => {
     void time
   }
+
+  public getSprite = () => this.player
 
   private createFrameSets = (scene: Phaser.Scene) => {
     if (frameSetCreated) return

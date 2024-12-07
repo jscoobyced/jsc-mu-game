@@ -3,10 +3,20 @@
     "name": "level-one",
     "tiles": "countryside",
     "player": {
+      "name": "mumu",
       "position": {
         "x": 96,
         "y": 192
       }
-    }
+    },
+    "npcs": [
+      {
+        "name": "forest-guy",
+        "position": {
+          "x": 1952,
+          "y": 800
+        }
+      }
+    ]
   }
 ]

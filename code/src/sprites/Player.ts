@@ -47,6 +47,7 @@ export default class Player {
     this.player = scene.physics.add
       .sprite(position.x, position.y, this.name)
       .setBounce(0)
+      .setName(this.name)
     this.createFrameSets(scene)
     this.player.play(this.playerDirection)
     this.cursor = cursor
@@ -86,6 +87,10 @@ export default class Player {
       }
     }
     this.changePlayerDirection(velocityX, velocityY, time)
+  }
+
+  public setIdle = () => {
+    this.player.play(`${this.name}-idle`)
   }
 
   public getSprite = () => this.player

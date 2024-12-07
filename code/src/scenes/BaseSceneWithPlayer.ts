@@ -3,11 +3,12 @@ import { getLevelInfo } from '../models/level'
 import BaseScene from './BaseScene'
 
 export default class BaseSceneWithPlayer extends BaseScene {
-  preload() {
+  public isCollided = false
+  protected basePreload = () => {
     this.doPreload(true)
   }
 
-  async create() {
+  protected baseCreate = async () => {
     let position = { x: 0, y: 0 }
     const currentStatus = await getCurrentStatus()
     if (currentStatus) {
@@ -21,8 +22,9 @@ export default class BaseSceneWithPlayer extends BaseScene {
     this.collidePlayerWithWorld(this.collideWithWorld)
   }
 
-  update = (time: number): void => {
-    this.doUpdate(time)
+  protected baseUpdate = (time: number): void => {
+    if (this.isCollided) this.getPlayer()?.setIdle()
+    else this.doUpdate(time)
   }
 
   private collideWithWorld = (data: Partial<Phaser.Physics.Arcade.Body>) => {

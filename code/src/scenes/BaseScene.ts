@@ -7,7 +7,6 @@ import { Coordinates } from '../models/coordinates'
 import { GeneralSettings } from '../models/general'
 import general from '../models/general.json'
 import { CurrentStatusData } from '../models/saved'
-import NpcPlayer from '../sprites/NpcPlayer'
 import Player from '../sprites/Player'
 
 const SAVE_PERIOD = 10000
@@ -17,7 +16,6 @@ export default class BaseScene extends Phaser.Scene {
   private lastSaved = 0
   protected cursor!: Phaser.Types.Input.Keyboard.CursorKeys
   protected levelName!: string
-  private npcPlayer!: NpcPlayer
 
   public constructor(levelName: string) {
     super(levelName)
@@ -36,8 +34,6 @@ export default class BaseScene extends Phaser.Scene {
       this.player = new Player(playerName)
       this.player.preload(this)
     }
-    this.npcPlayer = new NpcPlayer('forest-guy')
-    this.npcPlayer.preload(this)
     loadMapImage(this.levelName, this)
   }
 
@@ -62,7 +58,6 @@ export default class BaseScene extends Phaser.Scene {
       if (obstacleLayer) this.physics.add.collider(playerSprite, obstacleLayer)
       this.cameras.main.startFollow(playerSprite)
     }
-    this.npcPlayer.create({ x: 256, y: 256 }, this)
   }
 
   /**
@@ -71,7 +66,6 @@ export default class BaseScene extends Phaser.Scene {
    */
   protected doUpdate = (time: number) => {
     this.player?.update(time)
-    this.npcPlayer.update(time)
     if (time - this.lastSaved > SAVE_PERIOD) {
       this.lastSaved = time
       const playerSprite = this.player?.getSprite()

@@ -26,3 +26,6 @@ prod: .dep
 
 build: .dep
 	./etc/bin/build.sh
+
+deploy-pod:
+	kubectl apply -f etc/k8s/01-deployment.yaml
