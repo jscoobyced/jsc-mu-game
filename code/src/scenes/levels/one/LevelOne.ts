@@ -28,12 +28,11 @@ export default class LevelOne extends BaseSceneWithPlayer {
       const playerSprite = this.getPlayer()?.getSprite()
       if (playerSprite) {
         const npcPlayerSprite = npcPlayer.getSprite()
-        if (npcPlayerSprite)
-          this.physics.add.collider(
-            npcPlayerSprite,
-            playerSprite,
-            this.collideWithNpc,
-          )
+        this.physics.add.collider(
+          npcPlayerSprite,
+          playerSprite,
+          this.collideWithNpc,
+        )
       }
     })
   }
@@ -55,7 +54,7 @@ export default class LevelOne extends BaseSceneWithPlayer {
     if (this.isCollided) return
     this.isCollided = true
     // @ts-expect-error - Force checking the type
-    if (collisionData['type'] === 'Sprite') {
+    if (collisionData.type === 'Sprite') {
       const data = collisionData as Phaser.Physics.Arcade.Sprite
       void data
     }
