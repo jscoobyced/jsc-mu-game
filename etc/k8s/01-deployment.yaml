@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: jsc-mu-game
-          image: jscdroiddev/jsc-mu-game:0.0.15
+          image: jscdroiddev/jsc-mu-game:latest
           imagePullPolicy: Always
           env:
             - name: TZ

@@ -3,7 +3,6 @@ import { getLevelInfo } from '../models/level'
 import BaseScene from './BaseScene'
 
 export default class BaseSceneWithPlayer extends BaseScene {
-  public isCollided = false
   protected basePreload = () => {
     this.doPreload(true)
   }

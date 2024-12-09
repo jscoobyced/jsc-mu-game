@@ -11,11 +11,25 @@
     },
     "npcs": [
       {
-        "name": "forest-guy",
-        "position": {
-          "x": 1952,
-          "y": 800
-        }
+        "player": {
+          "name": "forest-guy",
+          "position": {
+            "x": 1952,
+            "y": 800
+          }
+        },
+        "interactions": [
+          {
+            "name": "first",
+            "dialog": [
+              "FOREST_GUY_INTRO_1",
+              "FOREST_GUY_INTRO_2",
+              "FOREST_GUY_INTRO_3",
+              "FOREST_GUY_INTRO_4",
+              "FOREST_GUY_INTRO_5"
+            ]
+          }
+        ]
       }
     ]
   }

@@ -7,6 +7,7 @@ import { Coordinates } from '../models/coordinates'
 import { GeneralSettings } from '../models/general'
 import general from '../models/general.json'
 import { CurrentStatusData } from '../models/saved'
+import Banner from '../sprites/Banner'
 import Player from '../sprites/Player'
 
 const SAVE_PERIOD = 10000
@@ -16,6 +17,8 @@ export default class BaseScene extends Phaser.Scene {
   private lastSaved = 0
   protected cursor!: Phaser.Types.Input.Keyboard.CursorKeys
   protected levelName!: string
+  protected isCollided = false
+  protected banner = new Banner()
 
   public constructor(levelName: string) {
     super(levelName)
@@ -34,6 +37,7 @@ export default class BaseScene extends Phaser.Scene {
       this.player = new Player(playerName)
       this.player.preload(this)
     }
+    this.banner.preload(this)
     loadMapImage(this.levelName, this)
   }
 
@@ -58,6 +62,7 @@ export default class BaseScene extends Phaser.Scene {
       if (obstacleLayer) this.physics.add.collider(playerSprite, obstacleLayer)
       this.cameras.main.startFollow(playerSprite)
     }
+    this.banner.create(this)
   }
 
   /**
@@ -105,6 +110,18 @@ export default class BaseScene extends Phaser.Scene {
    * @returns The Player object
    */
   protected getPlayer = () => this.player
+
+  protected showText = (text: string[]) => {
+    if (!this.player) return
+    this.banner.showText(text, () => {
+      this.banner.hide(this)
+      this.isCollided = false
+    })
+    this.banner.show(this, {
+      x: this.player.getSprite().x - 256,
+      y: this.player.getSprite().y - 128,
+    })
+  }
 
   /**
    * Allows to specify a collision function when the Player collids with boundaries of the world

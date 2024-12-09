@@ -1,3 +1,4 @@
+import { getI18nContent } from '../../../common/i18n'
 import { getLevelInfo } from '../../../models/level'
 import NpcPlayer from '../../../sprites/NpcPlayer'
 import BaseSceneWithPlayer from '../../BaseSceneWithPlayer'
@@ -13,7 +14,11 @@ export default class LevelOne extends BaseSceneWithPlayer {
     const levelInfo = getLevelInfo(this.levelName)
     if (levelInfo?.npcs) {
       levelInfo.npcs.forEach((npc) => {
-        const npcPlayer = new NpcPlayer(npc.name, npc.position)
+        const npcPlayer = new NpcPlayer(
+          npc.player.name,
+          npc.player.position,
+          npc.interactions,
+        )
         npcPlayer.preload(this)
         this.npcPlayers.push(npcPlayer)
       })
@@ -56,7 +61,22 @@ export default class LevelOne extends BaseSceneWithPlayer {
     // @ts-expect-error - Force checking the type
     if (collisionData.type === 'Sprite') {
       const data = collisionData as Phaser.Physics.Arcade.Sprite
-      void data
+      this.handleDialog(data.name)
     }
+  }
+
+  private handleDialog = (npcName: string) => {
+    const npcPlayer = this.npcPlayers.find(
+      (npcPlayer) => npcPlayer.getName() === npcName,
+    )
+    if (!npcPlayer) {
+      this.isCollided = false
+      return
+    }
+    const interactions = npcPlayer.getInteractions()
+    const text = interactions[0].dialog.map((dialog) =>
+      getI18nContent(dialog, 'en'),
+    ) as string[]
+    this.showText(text)
   }
 }
