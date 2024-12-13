@@ -14,20 +14,20 @@ export default class IntroScene extends BaseScene {
 
   preload() {
     this.load.image(
-      'title-logo',
-      `${this.general.baseUrls.images}/mumu-adventures.png`,
+      'title-text',
+      `${this.general.baseUrls.images}/mumu-adventures-title-text.png`,
     )
     this.load.image(
-      'title-image',
-      `${this.general.baseUrls.images}/mumu-adventures-title.png`,
+      'title-background',
+      `${this.general.baseUrls.images}/mumu-adventures-title-background.png`,
     )
   }
 
   create() {
     const middleX = this.game.canvas.width / 2
     const middleY = this.general.height / 2
-    this.add.image(middleX, middleY, 'title-image')
-    const logo = this.add.image(middleX, middleY, 'title-logo')
+    this.add.image(middleX, middleY, 'title-background')
+    const logo = this.add.image(middleX, middleY, 'title-text')
     this.tweens.add({
       targets: logo,
       y: this.game.canvas.height / 3,
