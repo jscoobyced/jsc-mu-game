@@ -1,7 +1,9 @@
 import { getApplicationData } from '../common/applicationData'
-import { getCurrentStatus } from '../common/storage'
+import { getCurrentStatus, saveCurrentStatus } from '../common/storage'
 import { GeneralSettings } from '../models/general'
 import { IApplicationData } from '../models/IApplicationData'
+import { Languages } from '../models/languages'
+import { CurrentStatusData } from '../models/saved'
 import BaseScene from './BaseScene'
 
 export default class IntroScene extends BaseScene {
@@ -58,5 +60,21 @@ export default class IntroScene extends BaseScene {
       })()
       this.goToLevel(levelName)
     })
+
+    const currentStatus: CurrentStatusData = {
+      levelName: this.levelName,
+      levelData: '',
+      language: Languages.EN,
+      player: {
+        position: {
+          x: -1,
+          y: -1,
+        },
+      },
+    }
+    void (async () => {
+      const currentStatusData = await getCurrentStatus()
+      if (!currentStatusData) await saveCurrentStatus(currentStatus)
+    })()
   }
 }

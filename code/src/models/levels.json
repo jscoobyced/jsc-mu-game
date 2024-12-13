@@ -21,13 +21,7 @@
         "interactions": [
           {
             "name": "first",
-            "dialog": [
-              "FOREST_GUY_INTRO_1",
-              "FOREST_GUY_INTRO_2",
-              "FOREST_GUY_INTRO_3",
-              "FOREST_GUY_INTRO_4",
-              "FOREST_GUY_INTRO_5"
-            ]
+            "dialog": "FOREST_GUY_INTRO_1"
           }
         ]
       }

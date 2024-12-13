@@ -1,4 +1,5 @@
 import { getI18nContent } from '../../../common/i18n'
+import { placePlayerNearSprite } from '../../../common/playerPosition'
 import { getLevelInfo } from '../../../models/level'
 import NpcPlayer from '../../../sprites/NpcPlayer'
 import BaseSceneWithPlayer from '../../BaseSceneWithPlayer'
@@ -73,10 +74,12 @@ export default class LevelOne extends BaseSceneWithPlayer {
       this.isCollided = false
       return
     }
+    placePlayerNearSprite(this.getPlayer()?.getSprite(), npcPlayer.getSprite())
     const interactions = npcPlayer.getInteractions()
-    const text = interactions[0].dialog.map((dialog) =>
-      getI18nContent(dialog, 'en'),
-    ) as string[]
-    this.showText(text)
+    const dialog = interactions[0].dialog
+    const text = getI18nContent(dialog, this.currentStatusData.language)?.split(
+      '\n',
+    )
+    if (text) this.showText(text)
   }
 }

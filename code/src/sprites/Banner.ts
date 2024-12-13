@@ -34,7 +34,7 @@ export default class Banner {
   show = (scene: Phaser.Scene, coordinates: Coordinates) => {
     this.image.setX(coordinates.x)
     this.image.setY(coordinates.y)
-    this.text.setX(coordinates.x - 256 + this.TEXT_PAD)
+    this.text.setX(coordinates.x - 250 + this.TEXT_PAD)
     this.text.setY(coordinates.y - 176)
 
     this.image.setVisible(true)

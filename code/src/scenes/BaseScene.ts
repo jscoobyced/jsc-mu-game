@@ -2,15 +2,16 @@ import Phaser from 'phaser'
 import Controller from '../common/controller'
 import { isMobile } from '../common/deviceHelper'
 import { createMap, getObstacleLayer, loadMapImage } from '../common/mapManager'
-import { saveCurrentStatus } from '../common/storage'
+import { getCurrentStatus, saveCurrentStatus } from '../common/storage'
 import { Coordinates } from '../models/coordinates'
 import { GeneralSettings } from '../models/general'
 import general from '../models/general.json'
+import { Languages } from '../models/languages'
 import { CurrentStatusData } from '../models/saved'
 import Banner from '../sprites/Banner'
 import Player from '../sprites/Player'
 
-const SAVE_PERIOD = 10000
+const SAVE_PERIOD = 5000
 
 export default class BaseScene extends Phaser.Scene {
   private player?: Player
@@ -36,6 +37,13 @@ export default class BaseScene extends Phaser.Scene {
     if (withPlayer) {
       this.player = new Player(playerName)
       this.player.preload(this)
+      void (async () => {
+        const currentStatusData = await getCurrentStatus()
+        if (currentStatusData) {
+          currentStatusData.levelName = this.levelName
+          await saveCurrentStatus(currentStatusData)
+        }
+      })()
     }
     this.banner.preload(this)
     loadMapImage(this.levelName, this)
@@ -77,6 +85,8 @@ export default class BaseScene extends Phaser.Scene {
       if (playerSprite) {
         const currentStatus: CurrentStatusData = {
           levelName: this.levelName,
+          levelData: '',
+          language: Languages.EN,
           player: {
             position: {
               x: playerSprite.x,
