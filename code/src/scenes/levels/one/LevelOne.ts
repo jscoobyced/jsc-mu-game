@@ -75,9 +75,10 @@ export default class LevelOne extends BaseSceneWithPlayer {
       this.isCollided = false
       return
     }
+    const npcPlayerSprite = npcPlayer.getSprite()
     placePlayerNearSprite(
       this.getPlayer()?.getSprite(),
-      npcPlayer.getSprite(),
+      npcPlayerSprite,
       isMobile(this.game),
     )
     const interactions = npcPlayer.getInteractions()
@@ -85,6 +86,10 @@ export default class LevelOne extends BaseSceneWithPlayer {
     const text = getI18nContent(dialog, this.currentStatusData.language)?.split(
       '\n',
     )
-    if (text) this.showText(text)
+    const coordinates = {
+      x: npcPlayerSprite.x + 240,
+      y: npcPlayerSprite.y - 150,
+    }
+    if (text) this.showText(text, coordinates)
   }
 }

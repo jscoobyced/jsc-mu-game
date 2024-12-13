@@ -121,15 +121,15 @@ export default class BaseScene extends Phaser.Scene {
    */
   protected getPlayer = () => this.player
 
-  protected showText = (text: string[]) => {
+  protected showText = (text: string[], spritePosition: Coordinates) => {
     if (!this.player) return
     this.banner.showText(text, () => {
       this.banner.hide(this)
       this.isCollided = false
     })
     this.banner.show(this, {
-      x: this.player.getSprite().x - 256,
-      y: this.player.getSprite().y - 128,
+      x: spritePosition.x,
+      y: spritePosition.y,
     })
   }
 
