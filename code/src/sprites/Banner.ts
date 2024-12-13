@@ -22,7 +22,7 @@ export default class Banner {
       this.image.y + this.TEXT_PAD,
       '',
       {
-        fontFamily: 'MumuFont',
+        fontFamily: this.general.font,
         fontSize: `${this.FONT_SIZE.toString()}px`,
         color: 'brown',
       },
