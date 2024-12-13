@@ -1,3 +1,4 @@
+import { isMobile } from '../../../common/deviceHelper'
 import { getI18nContent } from '../../../common/i18n'
 import { placePlayerNearSprite } from '../../../common/playerPosition'
 import { getLevelInfo } from '../../../models/level'
@@ -74,7 +75,11 @@ export default class LevelOne extends BaseSceneWithPlayer {
       this.isCollided = false
       return
     }
-    placePlayerNearSprite(this.getPlayer()?.getSprite(), npcPlayer.getSprite())
+    placePlayerNearSprite(
+      this.getPlayer()?.getSprite(),
+      npcPlayer.getSprite(),
+      isMobile(this.game),
+    )
     const interactions = npcPlayer.getInteractions()
     const dialog = interactions[0].dialog
     const text = getI18nContent(dialog, this.currentStatusData.language)?.split(

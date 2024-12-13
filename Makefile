@@ -1,4 +1,4 @@
-.SILENT: .dep setup dev test test-with-coverage lint build prod
+.SILENT: .dep setup dev test test-with-coverage lint build prod deploy
 
 .dep:
 	chmod u+x ./etc/bin/*.sh
