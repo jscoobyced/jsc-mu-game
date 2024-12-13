@@ -72,12 +72,12 @@ export const getCurrentStatus = async () => {
   return undefined
 }
 
-// @ts-expect-error - Force for debug
-window.mumu = window.mumu || {}
-// @ts-expect-error - Force for debug
-window.mumu.debug = () => {
-  ;(async () => {
-    const status = await getCurrentStatus()
-    console.log(status)
-  })()
-}
+// // @ts-expect-error - Force for debug
+// window.mumu = window.mumu || {}
+// // @ts-expect-error - Force for debug
+// window.mumu.debug = () => {
+//   ;(async () => {
+//     const status = await getCurrentStatus()
+//     console.log(status)
+//   })()
+// }

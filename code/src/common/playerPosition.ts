@@ -3,8 +3,8 @@ export const placePlayerNearSprite = (
   sprite: Phaser.Physics.Arcade.Sprite,
 ) => {
   if (playerSprite) {
-    const playerX = sprite.x - sprite.width / 2 - playerSprite?.width / 2 - 10
+    const playerX = sprite.x - sprite.width / 2 - playerSprite.width / 2 - 10
     const playerY = sprite.y
-    playerSprite?.setPosition(playerX, playerY)
+    playerSprite.setPosition(playerX, playerY)
   }
 }
