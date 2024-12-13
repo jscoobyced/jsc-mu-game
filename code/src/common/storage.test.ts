@@ -1,4 +1,5 @@
 import { vi } from 'vitest'
+import { Languages } from '../models/languages'
 import * as getLevelInfo from '../models/level'
 import { CurrentStatusData } from '../models/saved'
 import { getCurrentStatus, saveCurrentStatus } from './storage'
@@ -6,6 +7,8 @@ import { getCurrentStatus, saveCurrentStatus } from './storage'
 describe('storage', () => {
   const currentStatusData: CurrentStatusData = {
     levelName: 'test',
+    levelData: '',
+    language: Languages.EN,
     player: {
       position: {
         x: 5,
