@@ -21,7 +21,7 @@
         "interactions": [
           {
             "name": "first",
-            "dialog": "FOREST_GUY_INTRO_1"
+            "dialog": ["FOREST_GUY_INTRO_1", "FOREST_GUY_INTRO_2"]
           }
         ]
       }

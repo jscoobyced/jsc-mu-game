@@ -1,17 +1,20 @@
 {
   "en": [
     {
-      "FOREST_GUY_INTRO_1": "Hello Mumu! You have finally\nfound me. You must be\nwondering why you are here.\nI am going to explain everything\nto you."
+      "FOREST_GUY_INTRO_1": "Hello Mumu! You have finally\nfound me. You must be\nwondering why you are here.\nI am going to explain everything\nto you.",
+      "FOREST_GUY_INTRO_2": "Let me first tell you that\nI am so happy to meet you. I\nhave been waiting for you\nfor many years!"
     }
   ],
   "fr": [
     {
-      "FOREST_GUY_INTRO_1": "Bonjour Mumu ! Tu m'as enfin\ntrouvé. Tu dois te demander\npourquoi tu es ici.\nJe vais tout t'expliquer."
+      "FOREST_GUY_INTRO_1": "Bonjour Mumu ! Tu m'as enfin\ntrouvé. Tu dois te demander\npourquoi tu es ici.\nJe vais tout t'expliquer.",
+      "FOREST_GUY_INTRO_2": "Mais d'abord, je veux te dire\nque je suis si content de te\nrencontrer. Je t'ai attendu depuis\nplusieurs années!"
     }
   ],
   "th": [
     {
-      "FOREST_GUY_INTRO_1": "สวัสดีครับ มูมู!\nในที่สุดคุณก็เจอฉันแล้ว\nคุณคงสงสัยว่าคุณมาที่นี่ทำไม\nฉันจะอธิบายทุกอย่างให้คุณฟังรับ"
+      "FOREST_GUY_INTRO_1": "สวัสดีครับ มูมู!\nในที่สุดคุณก็เจอฉันแล้ว\nคุณคงสงสัยว่าคุณมาที่นี่ทำไม\nฉันจะอธิบายทุกอย่างให้คุณฟังรับ",
+      "FOREST_GUY_INTRO_2": "Let me first tell you that\nI am so happy to meet you. I\nhave been waiting for you\nfor many years!"
     }
   ]
 }

@@ -8,7 +8,7 @@ export interface PlayerInfo {
 
 export interface Interaction {
   name: string
-  dialog: string
+  dialog: string[]
 }
 
 export interface NpcInfo {

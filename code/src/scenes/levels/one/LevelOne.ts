@@ -1,6 +1,4 @@
-import { isMobile } from '../../../common/deviceHelper'
-import { getI18nContent } from '../../../common/i18n'
-import { placePlayerNearSprite } from '../../../common/playerPosition'
+import { handleDialog } from '../../../common/playerInteractions'
 import { getLevelInfo } from '../../../models/level'
 import NpcPlayer from '../../../sprites/NpcPlayer'
 import BaseSceneWithPlayer from '../../BaseSceneWithPlayer'
@@ -36,8 +34,8 @@ export default class LevelOne extends BaseSceneWithPlayer {
       if (playerSprite) {
         const npcPlayerSprite = npcPlayer.getSprite()
         this.physics.add.collider(
-          npcPlayerSprite,
           playerSprite,
+          npcPlayerSprite,
           this.collideWithNpc,
         )
       }
@@ -52,7 +50,12 @@ export default class LevelOne extends BaseSceneWithPlayer {
   }
 
   private collideWithNpc = (
-    collisionData:
+    collidedObject1:
+      | Phaser.Types.Physics.Arcade.GameObjectWithBody
+      | Phaser.Physics.Arcade.Body
+      | Phaser.Tilemaps.Tile
+      | Phaser.Physics.Arcade.Sprite,
+    collidedObject2:
       | Phaser.Types.Physics.Arcade.GameObjectWithBody
       | Phaser.Physics.Arcade.Body
       | Phaser.Tilemaps.Tile
@@ -60,36 +63,23 @@ export default class LevelOne extends BaseSceneWithPlayer {
   ) => {
     if (this.isCollided) return
     this.isCollided = true
+    void collidedObject1
     // @ts-expect-error - Force checking the type
-    if (collisionData.type === 'Sprite') {
-      const data = collisionData as Phaser.Physics.Arcade.Sprite
-      this.handleDialog(data.name)
+    if (collidedObject2.type === 'Sprite') {
+      const object2 = collidedObject2 as Phaser.Physics.Arcade.Sprite
+      const npcPlayer = this.npcPlayers.find(
+        (npcPlayer) => npcPlayer.getName() === object2.name,
+      )
+      if (!npcPlayer) {
+        this.isCollided = false
+        return
+      }
+      const player = this.getPlayer()
+      if (!player) {
+        this.isCollided = false
+        return
+      }
+      handleDialog(player, npcPlayer, this.currentStatusData, this)
     }
-  }
-
-  private handleDialog = (npcName: string) => {
-    const npcPlayer = this.npcPlayers.find(
-      (npcPlayer) => npcPlayer.getName() === npcName,
-    )
-    if (!npcPlayer) {
-      this.isCollided = false
-      return
-    }
-    const npcPlayerSprite = npcPlayer.getSprite()
-    placePlayerNearSprite(
-      this.getPlayer()?.getSprite(),
-      npcPlayerSprite,
-      isMobile(this.game),
-    )
-    const interactions = npcPlayer.getInteractions()
-    const dialog = interactions[0].dialog
-    const text = getI18nContent(dialog, this.currentStatusData.language)?.split(
-      '\n',
-    )
-    const coordinates = {
-      x: npcPlayerSprite.x + 240,
-      y: npcPlayerSprite.y - 150,
-    }
-    if (text) this.showText(text, coordinates)
   }
 }
