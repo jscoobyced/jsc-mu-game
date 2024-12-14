@@ -1,28 +1,39 @@
 import { Coordinates } from '../models/coordinates'
-import { CurrentStatusData } from '../models/saved'
 import BaseScene from '../scenes/BaseScene'
 import NpcPlayer from '../sprites/NpcPlayer'
 import Player from '../sprites/Player'
 import { isMobile } from './deviceHelper'
 import { getI18nContent } from './i18n'
 import { placePlayerNearSprite } from './playerPosition'
+import { updateLevelInteraction } from './statusUpdater'
+import { getCurrentStatus } from './storage'
 
-export const handleDialog = (
+export const handleDialog = async (
   player: Player,
   npcPlayer: NpcPlayer,
-  currentStatusData: CurrentStatusData,
   baseScene: BaseScene,
 ) => {
   const npcPlayerSprite = npcPlayer.getSprite()
+  const currentStatusData = await getCurrentStatus()
+  if (!currentStatusData) return false
   const playerSprite = player.getSprite()
+  const language = currentStatusData.language
+  const interactionNumber = currentStatusData.levelData.interaction
+  const interactions = npcPlayer.getInteractions()
+  if (interactionNumber >= interactions.length) return false
   placePlayerNearSprite(playerSprite, npcPlayerSprite, isMobile(baseScene.game))
   const coordinates = {
     x: npcPlayerSprite.x + 240,
     y: npcPlayerSprite.y - 150,
   }
-  const language = currentStatusData.language
-  const interactions = npcPlayer.getInteractions()
-  displayDialog(interactions[0].dialog, language, coordinates, baseScene)
+  displayDialog(
+    interactions[interactionNumber].dialog,
+    language,
+    coordinates,
+    baseScene,
+  )
+  updateLevelInteraction(interactionNumber + 1)
+  return true
 }
 
 const displayDialog = (

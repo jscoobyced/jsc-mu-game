@@ -76,7 +76,7 @@ export const getCurrentStatus = async () => {
 // window.mumu = window.mumu || {}
 // // @ts-expect-error - Force for debug
 // window.mumu.debug = () => {
-//   ;(async () => {
+//   void (async () => {
 //     const status = await getCurrentStatus()
 //     console.log(status)
 //   })()

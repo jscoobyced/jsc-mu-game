@@ -8,7 +8,9 @@ export default class Banner {
   private FONT_SIZE = 26
   private image!: Phaser.Types.Physics.Arcade.ImageWithDynamicBody
   private text!: Phaser.GameObjects.Text
-  private onPointerUp!: () => void
+  private onPointerUp: () => void = () => {
+    // to be defined
+  }
 
   preload = (scene: Phaser.Scene): void => {
     scene.load.image('banner', `${this.general.baseUrls.images}/banner.png`)
@@ -29,16 +31,6 @@ export default class Banner {
     )
     this.image.setVisible(false)
     this.text.setVisible(false)
-  }
-
-  show = (scene: Phaser.Scene, coordinates: Coordinates) => {
-    this.image.setX(coordinates.x)
-    this.image.setY(coordinates.y)
-    this.text.setX(coordinates.x - 215 + this.TEXT_PAD)
-    this.text.setY(coordinates.y - 150)
-
-    this.image.setVisible(true)
-    this.text.setVisible(true)
     this.image.setInteractive()
     this.image.on('pointerup', () => {
       this.executeCallback()
@@ -49,11 +41,18 @@ export default class Banner {
       })
   }
 
-  hide = (scene: Phaser.Scene) => {
+  show = (coordinates: Coordinates) => {
+    this.image.setX(coordinates.x)
+    this.image.setY(coordinates.y)
+    this.text.setX(coordinates.x - 215 + this.TEXT_PAD)
+    this.text.setY(coordinates.y - 150)
+    this.image.setVisible(true)
+    this.text.setVisible(true)
+  }
+
+  hide = () => {
     this.image.setVisible(false)
     this.text.setVisible(false)
-    this.image.removeInteractive()
-    if (scene.input.keyboard) scene.input.keyboard.off('keyup-SPACE')
   }
 
   showText = (text: string[], callback?: () => void) => {

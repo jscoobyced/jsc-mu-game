@@ -2,12 +2,11 @@ import Phaser from 'phaser'
 import Controller from '../common/controller'
 import { isMobile } from '../common/deviceHelper'
 import { createMap, getObstacleLayer, loadMapImage } from '../common/mapManager'
+import { updatePlayerPoistion as updatePlayerPosition } from '../common/statusUpdater'
 import { getCurrentStatus, saveCurrentStatus } from '../common/storage'
 import { Coordinates } from '../models/coordinates'
 import { GeneralSettings } from '../models/general'
 import general from '../models/general.json'
-import { Languages } from '../models/languages'
-import { CurrentStatusData } from '../models/saved'
 import Banner from '../sprites/Banner'
 import Player from '../sprites/Player'
 
@@ -83,20 +82,11 @@ export default class BaseScene extends Phaser.Scene {
       this.lastSaved = time
       const playerSprite = this.player?.getSprite()
       if (playerSprite) {
-        const currentStatus: CurrentStatusData = {
-          levelName: this.levelName,
-          levelData: '',
-          language: Languages.EN,
-          player: {
-            position: {
-              x: playerSprite.x,
-              y: playerSprite.y,
-            },
-          },
+        const currentPosition: Coordinates = {
+          x: playerSprite.x,
+          y: playerSprite.y,
         }
-        void (async () => {
-          await saveCurrentStatus(currentStatus)
-        })()
+        updatePlayerPosition(currentPosition)
       }
     }
   }
@@ -129,13 +119,13 @@ export default class BaseScene extends Phaser.Scene {
   ) => {
     if (!this.player) return
     this.banner.showText(text, () => {
-      this.banner.hide(this)
+      this.banner.hide()
       this.isCollided = false
       if (callBack && counter) {
         callBack(counter)
       }
     })
-    this.banner.show(this, {
+    this.banner.show({
       x: spritePosition.x,
       y: spritePosition.y,
     })

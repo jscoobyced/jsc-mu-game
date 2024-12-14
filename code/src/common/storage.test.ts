@@ -7,7 +7,9 @@ import { getCurrentStatus, saveCurrentStatus } from './storage'
 describe('storage', () => {
   const currentStatusData: CurrentStatusData = {
     levelName: 'test',
-    levelData: '',
+    levelData: {
+      interaction: 0,
+    },
     language: Languages.EN,
     player: {
       position: {

@@ -63,7 +63,9 @@ export default class IntroScene extends BaseScene {
 
     const currentStatus: CurrentStatusData = {
       levelName: this.levelName,
-      levelData: '',
+      levelData: {
+        interaction: 0,
+      },
       language: Languages.EN,
       player: {
         position: {

@@ -79,7 +79,10 @@ export default class LevelOne extends BaseSceneWithPlayer {
         this.isCollided = false
         return
       }
-      handleDialog(player, npcPlayer, this.currentStatusData, this)
+      void (async () => {
+        const hasDialog = await handleDialog(player, npcPlayer, this)
+        if (!hasDialog) this.isCollided = false
+      })()
     }
   }
 }

@@ -1,7 +1,7 @@
 import { Coordinates } from './coordinates'
 
-export interface LevelOneData {
-  interractions: number[]
+export interface LevelData {
+  interaction: number
 }
 
 export interface CurrentStatusData {
@@ -10,5 +10,5 @@ export interface CurrentStatusData {
   }
   language: string
   levelName: string
-  levelData: LevelOneData | string
+  levelData: LevelData
 }

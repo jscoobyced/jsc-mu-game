@@ -1,11 +1,8 @@
 import { getCurrentStatus } from '../common/storage'
 import { getLevelInfo } from '../models/level'
-import { CurrentStatusData } from '../models/saved'
 import BaseScene from './BaseScene'
 
 export default class BaseSceneWithPlayer extends BaseScene {
-  protected currentStatusData!: CurrentStatusData
-
   protected basePreload = () => {
     this.doPreload(true)
   }
@@ -18,8 +15,7 @@ export default class BaseSceneWithPlayer extends BaseScene {
       currentStatusData.player.position.x != -1 &&
       currentStatusData.levelName === this.levelName
     ) {
-      this.currentStatusData = currentStatusData
-      position = this.currentStatusData.player.position
+      position = currentStatusData.player.position
     } else {
       const levelInfo = getLevelInfo(this.levelName)
       if (!levelInfo) return
