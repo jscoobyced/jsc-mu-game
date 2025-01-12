@@ -57,6 +57,7 @@ export default class Banner {
 
   showText = (text: string[], callback?: () => void) => {
     const content = text.map((current, index) => {
+      if (index === 0 && text.length === 1) return '"' + current + '"'
       if (index === 0) return '"' + current
       if (index === text.length - 1) return current + '"'
       return current

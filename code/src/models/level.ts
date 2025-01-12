@@ -1,19 +1,10 @@
-import { Coordinates } from './coordinates'
 import levels from './levels.json'
-
-export interface PlayerInfo {
-  name: string
-  position: Coordinates
-}
+import { NpcInfo, PlayerInfo } from './player/player'
 
 export interface Interaction {
   name: string
+  requiredItems: string[]
   dialog: string[]
-}
-
-export interface NpcInfo {
-  player: PlayerInfo
-  interactions: Interaction[]
 }
 
 export interface LevelInfo {

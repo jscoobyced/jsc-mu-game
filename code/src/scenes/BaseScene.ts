@@ -114,15 +114,16 @@ export default class BaseScene extends Phaser.Scene {
   public showText = (
     text: string[],
     spritePosition: Coordinates,
-    callBack?: (counter: number) => void,
+    callBack?: (counter: number) => boolean,
     counter?: number,
   ) => {
     if (!this.player) return
     this.banner.showText(text, () => {
       this.banner.hide()
-      this.isCollided = false
       if (callBack && counter) {
-        callBack(counter)
+        if (!callBack(counter)) {
+          this.isCollided = false
+        }
       }
     })
     this.banner.show({

@@ -7,6 +7,7 @@ export interface LevelData {
 export interface CurrentStatusData {
   player: {
     position: Coordinates
+    items?: string[]
   }
   language: string
   levelName: string

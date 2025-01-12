@@ -14,11 +14,7 @@ export default class LevelOne extends BaseSceneWithPlayer {
     const levelInfo = getLevelInfo(this.levelName)
     if (levelInfo?.npcs) {
       levelInfo.npcs.forEach((npc) => {
-        const npcPlayer = new NpcPlayer(
-          npc.player.name,
-          npc.player.position,
-          npc.interactions,
-        )
+        const npcPlayer = new NpcPlayer(npc.player.name, npc.player.position)
         npcPlayer.preload(this)
         this.npcPlayers.push(npcPlayer)
       })
@@ -70,18 +66,13 @@ export default class LevelOne extends BaseSceneWithPlayer {
       const npcPlayer = this.npcPlayers.find(
         (npcPlayer) => npcPlayer.getName() === object2.name,
       )
-      if (!npcPlayer) {
-        this.isCollided = false
-        return
-      }
       const player = this.getPlayer()
-      if (!player) {
+      if (!npcPlayer || !player) {
         this.isCollided = false
         return
       }
       void (async () => {
-        const hasDialog = await handleDialog(player, npcPlayer, this)
-        if (!hasDialog) this.isCollided = false
+        await handleDialog(player, npcPlayer, this)
       })()
     }
   }

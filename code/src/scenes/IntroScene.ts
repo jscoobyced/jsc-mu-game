@@ -50,7 +50,7 @@ export default class IntroScene extends BaseScene {
     )
 
     this.input.on('pointerup', () => {
-      this.scale.startFullscreen()
+      // this.scale.startFullscreen()
       let levelName = 'level-one'
       void (async () => {
         const currentStatus = await getCurrentStatus()

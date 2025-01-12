@@ -13,16 +13,3 @@ export const updatePlayerPoistion = (position: Coordinates) => {
     }
   })()
 }
-
-export const updateLevelInteraction = (interaction: number) => {
-  void (async () => {
-    const currentStatus = await getCurrentStatus()
-    if (currentStatus) {
-      const newStatus = {
-        ...currentStatus,
-        levelData: { interaction },
-      }
-      await saveCurrentStatus(newStatus)
-    }
-  })()
-}

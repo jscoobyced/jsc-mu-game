@@ -16,14 +16,20 @@
           "position": {
             "x": 1952,
             "y": 800
-          }
-        },
-        "interactions": [
-          {
-            "name": "first",
-            "dialog": ["FOREST_GUY_INTRO_1", "FOREST_GUY_INTRO_2"]
-          }
-        ]
+          },
+          "interactions": [
+            {
+              "name": "coffee",
+              "requiredItems": ["coffee"],
+              "dialog": [
+                "FOREST_GUY_INTRO_1",
+                "FOREST_GUY_INTRO_2",
+                "FOREST_GUY_INTRO_3",
+                "FOREST_GUY_INTRO_4"
+              ]
+            }
+          ]
+        }
       }
     ]
   }
