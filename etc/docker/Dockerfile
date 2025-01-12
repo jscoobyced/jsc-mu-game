@@ -12,4 +12,5 @@ RUN yarn --cwd code build
 FROM nginx:alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html
+COPY etc/docker/nginx.conf /etc/nginx/
 EXPOSE 80
