@@ -4,7 +4,7 @@ import { NpcInfo, PlayerInfo } from './player/player'
 export interface Interaction {
   name: string
   requiredItems: string[]
-  dialog: string[]
+  dialogs: string[]
 }
 
 export interface LevelInfo {

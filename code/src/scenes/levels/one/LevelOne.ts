@@ -1,4 +1,4 @@
-import { handleDialog } from '../../../common/playerInteractions'
+import { handleInteraction } from '../../../common/playerInteractions'
 import { getLevelInfo } from '../../../models/level'
 import NpcPlayer from '../../../sprites/NpcPlayer'
 import BaseSceneWithPlayer from '../../BaseSceneWithPlayer'
@@ -14,7 +14,11 @@ export default class LevelOne extends BaseSceneWithPlayer {
     const levelInfo = getLevelInfo(this.levelName)
     if (levelInfo?.npcs) {
       levelInfo.npcs.forEach((npc) => {
-        const npcPlayer = new NpcPlayer(npc.player.name, npc.player.position)
+        const npcPlayer = new NpcPlayer(
+          npc.player.name,
+          npc.player.position,
+          npc.interactions,
+        )
         npcPlayer.preload(this)
         this.npcPlayers.push(npcPlayer)
       })
@@ -72,7 +76,8 @@ export default class LevelOne extends BaseSceneWithPlayer {
         return
       }
       void (async () => {
-        await handleDialog(player, npcPlayer, this)
+        const hasInteractions = await handleInteraction(player, npcPlayer, this)
+        if (!hasInteractions) this.isCollided = false
       })()
     }
   }

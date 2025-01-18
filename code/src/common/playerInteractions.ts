@@ -1,13 +1,15 @@
 import { Coordinates } from '../models/coordinates'
+import { Interaction } from '../models/level'
 import BaseScene from '../scenes/BaseScene'
 import NpcPlayer from '../sprites/NpcPlayer'
 import Player from '../sprites/Player'
 import { isMobile } from './deviceHelper'
 import { getI18nContent } from './i18n'
 import { placePlayerNearSprite } from './playerPosition'
+import { updatePlayerCurrentInteraction } from './statusUpdater'
 import { getCurrentStatus } from './storage'
 
-export const handleDialog = async (
+export const handleInteraction = async (
   player: Player,
   npcPlayer: NpcPlayer,
   baseScene: BaseScene,
@@ -17,31 +19,30 @@ export const handleDialog = async (
   if (!currentStatusData) return false
   const playerSprite = player.getSprite()
   const language = currentStatusData.language
-  // if (!false) return
-  placePlayerNearSprite(playerSprite, npcPlayerSprite, isMobile(baseScene.game))
+  const currentInteraction = currentStatusData.levelData.interaction | 0
   const coordinates = {
     x: npcPlayerSprite.x + 240,
     y: npcPlayerSprite.y - 150,
   }
+  if (!npcPlayer.getInteractions()[currentInteraction]) return false
+  placePlayerNearSprite(playerSprite, npcPlayerSprite, isMobile(baseScene.game))
   displayDialog(
-    [
-      'FOREST_GUY_INTRO_1',
-      'FOREST_GUY_INTRO_2',
-      'FOREST_GUY_INTRO_3',
-      'FOREST_GUY_INTRO_4',
-    ],
+    npcPlayer.getInteractions()[currentInteraction],
     language,
     coordinates,
     baseScene,
   )
+  updatePlayerCurrentInteraction(currentInteraction + 1)
+  return true
 }
 
 const displayDialog = (
-  dialogs: string[],
+  interaction: Interaction,
   language: string,
   coordinates: Coordinates,
   baseScene: BaseScene,
 ) => {
+  const dialogs = interaction.dialogs
   const showText = (counter: number) => {
     if (counter < dialogs.length) {
       const text = getI18nContent(dialogs[counter], language)?.split('\n')

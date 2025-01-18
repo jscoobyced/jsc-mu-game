@@ -2,19 +2,26 @@ import Phaser from 'phaser'
 import { createIdleFrameSet } from '../common/frameSetManager'
 import { Coordinates } from '../models/coordinates'
 import getGeneralSettings, { GeneralSettings } from '../models/general'
+import { Interaction } from '../models/level'
 
 let frameSetCreated = false
 
 export default class NpcPlayer {
   private name!: string
+  private interactions!: Interaction[]
   private player!: Phaser.Physics.Arcade.Sprite
   private playerDirection = 'idle'
   private initialPosition!: Coordinates
   private general: GeneralSettings = getGeneralSettings()
 
-  constructor(name: string, initialPosition: Coordinates) {
+  constructor(
+    name: string,
+    initialPosition: Coordinates,
+    interactions: Interaction[],
+  ) {
     this.name = name
     this.initialPosition = initialPosition
+    this.interactions = interactions
     this.playerDirection = `${this.name}-idle`
   }
 
@@ -44,6 +51,8 @@ export default class NpcPlayer {
   public getSprite = () => this.player
 
   public getName = () => this.name
+
+  public getInteractions = () => this.interactions
 
   private createFrameSets = (scene: Phaser.Scene) => {
     if (frameSetCreated) return

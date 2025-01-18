@@ -1,5 +1,6 @@
 import { InventoryItem } from '../common'
 import { Coordinates } from '../coordinates'
+import { Interaction } from '../level'
 
 export interface PlayerInfo {
   name: string
@@ -13,4 +14,5 @@ export interface MainPlayer {
 
 export interface NpcInfo {
   player: PlayerInfo
+  interactions: Interaction[]
 }
