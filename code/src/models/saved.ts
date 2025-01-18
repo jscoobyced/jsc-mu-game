@@ -2,6 +2,7 @@ import { Coordinates } from './coordinates'
 
 export interface LevelData {
   interaction: number
+  levelName: string
 }
 
 export interface CurrentStatusData {
@@ -10,6 +11,5 @@ export interface CurrentStatusData {
     items?: string[]
   }
   language: string
-  levelName: string
   levelData: LevelData
 }

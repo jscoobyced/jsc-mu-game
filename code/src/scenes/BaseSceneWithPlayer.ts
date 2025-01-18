@@ -13,7 +13,7 @@ export default class BaseSceneWithPlayer extends BaseScene {
     if (
       currentStatusData &&
       currentStatusData.player.position.x != -1 &&
-      currentStatusData.levelName === this.levelName
+      currentStatusData.levelData.levelName === this.levelName
     ) {
       position = currentStatusData.player.position
     } else {

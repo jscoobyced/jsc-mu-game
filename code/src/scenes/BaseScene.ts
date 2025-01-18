@@ -39,7 +39,7 @@ export default class BaseScene extends Phaser.Scene {
       void (async () => {
         const currentStatusData = await getCurrentStatus()
         if (currentStatusData) {
-          currentStatusData.levelName = this.levelName
+          currentStatusData.levelData.levelName = this.levelName
           await saveCurrentStatus(currentStatusData)
         }
       })()

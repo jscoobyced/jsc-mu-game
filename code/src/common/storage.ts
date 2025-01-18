@@ -72,12 +72,27 @@ export const getCurrentStatus = async () => {
   return undefined
 }
 
-// // @ts-expect-error - Force for debug
-// window.mumu = window.mumu || {}
-// // @ts-expect-error - Force for debug
-// window.mumu.debug = () => {
-//   void (async () => {
-//     const status = await getCurrentStatus()
-//     console.log(status)
-//   })()
-// }
+declare global {
+  interface Window {
+    mumu: {
+      debug: () => void
+    }
+  }
+}
+const mumu = {
+  debug: async () => {
+    const returnResult = {
+      value: '',
+    }
+    if (
+      document.location.hostname === 'localhost' ||
+      document.location.hostname === '127.0.0.1'
+    ) {
+      const result = await getCurrentStatus()
+      returnResult.value = JSON.stringify(result)
+    }
+    return returnResult.value
+  },
+}
+
+window.mumu = mumu

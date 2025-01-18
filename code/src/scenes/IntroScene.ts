@@ -56,16 +56,16 @@ export default class IntroScene extends BaseScene {
       void (async () => {
         const currentStatus = await getCurrentStatus()
         if (currentStatus) {
-          levelName = currentStatus.levelName
+          levelName = currentStatus.levelData.levelName
         }
       })()
       this.goToLevel(levelName)
     })
 
     const currentStatus: CurrentStatusData = {
-      levelName: this.levelName,
       levelData: {
         interaction: 0,
+        levelName: this.levelName,
       },
       language: Languages.EN,
       player: {

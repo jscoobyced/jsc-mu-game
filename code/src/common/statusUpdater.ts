@@ -21,6 +21,7 @@ export const updatePlayerCurrentInteraction = (interaction: number) => {
       const newStatus = {
         ...currentStatus,
         levelData: {
+          ...currentStatus.levelData,
           interaction: interaction,
         },
       }
