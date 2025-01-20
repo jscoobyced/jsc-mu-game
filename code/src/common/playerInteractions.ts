@@ -32,7 +32,7 @@ export const handleInteraction = async (
     coordinates,
     baseScene,
   )
-  updatePlayerCurrentInteraction(currentInteraction + 1)
+  await updatePlayerCurrentInteraction(currentInteraction + 1)
   return true
 }
 

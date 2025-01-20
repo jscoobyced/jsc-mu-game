@@ -1,5 +1,5 @@
 import { getApplicationData } from '../common/applicationData'
-import { getCurrentStatus, saveCurrentStatus } from '../common/storage'
+import { getCurrentStatus, setCurrentStatus } from '../common/storage'
 import { GeneralSettings } from '../models/general'
 import { IApplicationData } from '../models/IApplicationData'
 import { Languages } from '../models/languages'
@@ -77,7 +77,7 @@ export default class IntroScene extends BaseScene {
     }
     void (async () => {
       const currentStatusData = await getCurrentStatus()
-      if (!currentStatusData) await saveCurrentStatus(currentStatus)
+      if (!currentStatusData) await setCurrentStatus(currentStatus)
     })()
   }
 }

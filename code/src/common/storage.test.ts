@@ -2,7 +2,7 @@ import { vi } from 'vitest'
 import { Languages } from '../models/languages'
 import * as getLevelInfo from '../models/level'
 import { CurrentStatusData } from '../models/saved'
-import { getCurrentStatus, saveCurrentStatus } from './storage'
+import { getCurrentStatus, setCurrentStatus } from './storage'
 
 describe('storage', () => {
   const currentStatusData: CurrentStatusData = {
@@ -27,12 +27,12 @@ describe('storage', () => {
   })
 
   it('can store currentStatus data', async () => {
-    const result = await saveCurrentStatus(currentStatusData)
+    const result = await setCurrentStatus(currentStatusData)
     expect(result).toBeTruthy()
   })
 
   it('can store and retrieve currentStatus data', async () => {
-    await saveCurrentStatus(currentStatusData)
+    await setCurrentStatus(currentStatusData)
     const data = await getCurrentStatus()
     expect(data).toEqual(currentStatusData)
   })
@@ -41,7 +41,7 @@ describe('storage', () => {
     setItemSpy.mockImplementation(() => {
       throw Error('Not allowed')
     })
-    const result = await saveCurrentStatus(currentStatusData)
+    const result = await setCurrentStatus(currentStatusData)
     expect(result).toBeFalsy()
   })
 

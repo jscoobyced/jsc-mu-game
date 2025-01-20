@@ -3,7 +3,7 @@ import Controller from '../common/controller'
 import { isMobile } from '../common/deviceHelper'
 import { createMap, getObstacleLayer, loadMapImage } from '../common/mapManager'
 import { updatePlayerPosition } from '../common/statusUpdater'
-import { getCurrentStatus, saveCurrentStatus } from '../common/storage'
+import { getCurrentStatus, setCurrentStatus } from '../common/storage'
 import { Coordinates } from '../models/coordinates'
 import { GeneralSettings } from '../models/general'
 import general from '../models/general.json'
@@ -40,7 +40,7 @@ export default class BaseScene extends Phaser.Scene {
         const currentStatusData = await getCurrentStatus()
         if (currentStatusData) {
           currentStatusData.levelData.levelName = this.levelName
-          await saveCurrentStatus(currentStatusData)
+          await setCurrentStatus(currentStatusData)
         }
       })()
     }
@@ -86,7 +86,9 @@ export default class BaseScene extends Phaser.Scene {
           x: playerSprite.x,
           y: playerSprite.y,
         }
-        updatePlayerPosition(currentPosition)
+        void (async () => {
+          await updatePlayerPosition(currentPosition)
+        })
       }
     }
   }
