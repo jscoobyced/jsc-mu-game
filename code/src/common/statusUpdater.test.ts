@@ -17,8 +17,11 @@ describe('statusUpdater', () => {
       interaction: 0,
     },
     player: {
-      position: { x: 0, y: 0 },
-      items: [],
+      player: {
+        name: 'testPlayer',
+        position: { x: 0, y: 0 },
+      },
+      inventory: [],
     },
   }
 
@@ -62,10 +65,16 @@ describe('statusUpdater', () => {
       x: 10,
       y: 10,
     }
-    const expected = {
+    const expected: CurrentStatusData = {
       language: 'en',
       levelData: { levelName: 'test', interaction: 0 },
-      player: { position },
+      player: {
+        player: {
+          name: 'testPlayer',
+          position,
+        },
+        inventory: [],
+      },
     }
 
     await updatePlayerPosition(position)
@@ -90,10 +99,16 @@ describe('statusUpdater', () => {
       x: 0,
       y: 0,
     }
-    const expected = {
+    const expected: CurrentStatusData = {
       language: 'en',
       levelData: { levelName: 'test', interaction: 0 },
-      player: { items: [], position },
+      player: {
+        player: {
+          name: 'testPlayer',
+          position,
+        },
+        inventory: [],
+      },
     }
 
     await updatePlayerCurrentInteraction(0)

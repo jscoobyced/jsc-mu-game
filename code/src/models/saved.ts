@@ -1,4 +1,4 @@
-import { Coordinates } from './coordinates'
+import { MainPlayer } from './player/player'
 
 export interface LevelData {
   interaction: number
@@ -6,10 +6,7 @@ export interface LevelData {
 }
 
 export interface CurrentStatusData {
-  player: {
-    position: Coordinates
-    items?: string[]
-  }
+  player: MainPlayer
   language: string
   levelData: LevelData
 }

@@ -12,10 +12,14 @@ describe('storage', () => {
     },
     language: Languages.EN,
     player: {
-      position: {
-        x: 5,
-        y: 5,
+      player: {
+        name: 'testPlayer',
+        position: {
+          x: 5,
+          y: 5,
+        },
       },
+      inventory: [],
     },
   }
 

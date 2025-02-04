@@ -6,7 +6,13 @@ export const updatePlayerPosition = async (position: Coordinates) => {
   if (currentStatus) {
     const newStatus = {
       ...currentStatus,
-      player: { position },
+      player: {
+        player: {
+          name: currentStatus.player.player.name,
+          position,
+        },
+        inventory: currentStatus.player.inventory,
+      },
     }
     await setCurrentStatus(newStatus)
   }

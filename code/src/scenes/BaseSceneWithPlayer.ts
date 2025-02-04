@@ -12,10 +12,10 @@ export default class BaseSceneWithPlayer extends BaseScene {
     const currentStatusData = await getCurrentStatus()
     if (
       currentStatusData &&
-      currentStatusData.player.position.x != -1 &&
+      currentStatusData.player.player.position.x != -1 &&
       currentStatusData.levelData.levelName === this.levelName
     ) {
-      position = currentStatusData.player.position
+      position = currentStatusData.player.player.position
     } else {
       const levelInfo = getLevelInfo(this.levelName)
       if (!levelInfo) return

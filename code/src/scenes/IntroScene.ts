@@ -69,10 +69,14 @@ export default class IntroScene extends BaseScene {
       },
       language: Languages.EN,
       player: {
-        position: {
-          x: -1,
-          y: -1,
+        player: {
+          name: 'Mumu',
+          position: {
+            x: -1,
+            y: -1,
+          },
         },
+        inventory: [],
       },
     }
     void (async () => {

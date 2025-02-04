@@ -24,7 +24,11 @@ export const handleInteraction = async (
     x: npcPlayerSprite.x + 240,
     y: npcPlayerSprite.y - 150,
   }
-  if (!npcPlayer.getInteractions()[currentInteraction]) return false
+  if (
+    npcPlayer.getInteractions().length < currentInteraction + 1 ||
+    !npcPlayer.getInteractions()[currentInteraction]
+  )
+    return false
   placePlayerNearSprite(playerSprite, npcPlayerSprite, isMobile(baseScene.game))
   displayDialog(
     npcPlayer.getInteractions()[currentInteraction],
@@ -35,7 +39,13 @@ export const handleInteraction = async (
   await updatePlayerCurrentInteraction(currentInteraction + 1)
   return true
 }
-
+/*
+const playerHasInteractionRequiredItems = (interaction: Interaction): boolean => {
+  const requiredItems = interaction.requiredItems || []
+  const playerItems = getPlayerInventory()
+  return requiredItems.some((itemId) => playerItems.includes(itemId)) || requiredItems.length === 0
+  }
+*/
 const displayDialog = (
   interaction: Interaction,
   language: string,
