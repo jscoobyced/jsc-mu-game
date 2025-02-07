@@ -5,7 +5,7 @@
     "player": {
       "name": "mumu",
       "position": {
-        "x": 96,
+        "x": 192,
         "y": 192
       }
     },
@@ -20,14 +20,24 @@
         },
         "interactions": [
           {
-            "name": "coffee",
-            "requiredItems": ["coffee"],
+            "name": "hello",
+            "requiredItems": [],
             "dialogs": [
               "FOREST_GUY_INTRO_1",
               "FOREST_GUY_INTRO_2",
               "FOREST_GUY_INTRO_3",
               "FOREST_GUY_INTRO_4"
             ]
+          },
+          {
+            "name": "zzzzz",
+            "requiredItems": [],
+            "dialogs": ["FOREST_GUY_INTRO_4"]
+          },
+          {
+            "name": "coffee",
+            "requiredItems": ["coffee"],
+            "dialogs": ["FOREST_GUY_INTRO_5"]
           }
         ]
       }

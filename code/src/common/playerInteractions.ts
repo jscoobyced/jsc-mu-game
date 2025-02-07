@@ -1,10 +1,11 @@
 import { Coordinates } from '../models/coordinates'
 import { Interaction } from '../models/level'
+import { CurrentStatusData } from '../models/saved'
 import BaseScene from '../scenes/BaseScene'
 import NpcPlayer from '../sprites/NpcPlayer'
 import Player from '../sprites/Player'
 import { isMobile } from './deviceHelper'
-import { getI18nContent } from './i18n'
+import { getI18nDialog } from './i18n'
 import { placePlayerNearSprite } from './playerPosition'
 import { updatePlayerCurrentInteraction } from './statusUpdater'
 import { getCurrentStatus } from './storage'
@@ -19,33 +20,60 @@ export const handleInteraction = async (
   if (!currentStatusData) return false
   const playerSprite = player.getSprite()
   const language = currentStatusData.language
-  const currentInteraction = currentStatusData.levelData.interaction | 0
+  const currentInteractionIndex = currentStatusData.levelData.interaction | 0
+  if (npcPlayer.getInteractions().length < currentInteractionIndex + 1)
+    return false
+
+  const currentInteraction =
+    npcPlayer.getInteractions()[currentInteractionIndex]
+  const hasRequiredItems = playerHasInteractionRequiredItems(
+    currentInteraction,
+    currentStatusData,
+  )
   const coordinates = {
     x: npcPlayerSprite.x + 240,
     y: npcPlayerSprite.y - 150,
   }
+
   if (
-    npcPlayer.getInteractions().length < currentInteraction + 1 ||
-    !npcPlayer.getInteractions()[currentInteraction]
-  )
-    return false
+    !hasRequiredItems ||
+    npcPlayer.getInteractions().length < currentInteractionIndex + 1
+  ) {
+    const previousInteractionIndex = Math.max(0, currentInteractionIndex - 1)
+
+    displayDialog(
+      npcPlayer.getInteractions()[previousInteractionIndex],
+      language,
+      coordinates,
+      baseScene,
+    )
+
+    return true
+  }
   placePlayerNearSprite(playerSprite, npcPlayerSprite, isMobile(baseScene.game))
+
   displayDialog(
-    npcPlayer.getInteractions()[currentInteraction],
+    npcPlayer.getInteractions()[currentInteractionIndex],
     language,
     coordinates,
     baseScene,
   )
-  await updatePlayerCurrentInteraction(currentInteraction + 1)
+  await updatePlayerCurrentInteraction(currentInteractionIndex + 1)
   return true
 }
-/*
-const playerHasInteractionRequiredItems = (interaction: Interaction): boolean => {
-  const requiredItems = interaction.requiredItems || []
-  const playerItems = getPlayerInventory()
-  return requiredItems.some((itemId) => playerItems.includes(itemId)) || requiredItems.length === 0
-  }
-*/
+
+const playerHasInteractionRequiredItems = (
+  interaction: Interaction,
+  currentStatusData: CurrentStatusData,
+): boolean => {
+  const requiredItems = interaction.requiredItems
+  const playerItems = currentStatusData.player.inventory
+  return (
+    requiredItems.some((itemId) => playerItems.includes(itemId)) ||
+    requiredItems.length === 0
+  )
+}
+
 const displayDialog = (
   interaction: Interaction,
   language: string,
@@ -55,7 +83,7 @@ const displayDialog = (
   const dialogs = interaction.dialogs
   const showText = (counter: number) => {
     if (counter < dialogs.length) {
-      const text = getI18nContent(dialogs[counter], language)?.split('\n')
+      const text = getI18nDialog(dialogs[counter], language)?.split('\n')
       if (text) baseScene.showText(text, coordinates, showText, counter + 1)
       return true
     } else {

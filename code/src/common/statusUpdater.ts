@@ -1,8 +1,29 @@
 import { Coordinates } from '../models/coordinates'
+import { Languages } from '../models/languages'
+import { CurrentStatusData } from '../models/saved'
 import { getCurrentStatus, setCurrentStatus } from './storage'
+
+export const defaultStatusData: CurrentStatusData = {
+  levelData: {
+    interaction: 0,
+    levelName: '',
+  },
+  language: Languages.EN,
+  player: {
+    player: {
+      name: 'Mumu',
+      position: {
+        x: 192,
+        y: 192,
+      },
+    },
+    inventory: [],
+  },
+}
 
 export const updatePlayerPosition = async (position: Coordinates) => {
   const currentStatus = await getCurrentStatus()
+
   if (currentStatus) {
     const newStatus = {
       ...currentStatus,

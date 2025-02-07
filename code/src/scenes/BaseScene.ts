@@ -88,7 +88,7 @@ export default class BaseScene extends Phaser.Scene {
         }
         void (async () => {
           await updatePlayerPosition(currentPosition)
-        })
+        })()
       }
     }
   }
