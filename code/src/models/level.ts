@@ -5,6 +5,8 @@ export interface Interaction {
   name: string
   requiredItems: string[]
   dialogs: string[]
+  isSleeping?: boolean
+  isSleepAfterInteractions?: boolean
 }
 
 export interface LevelInfo {

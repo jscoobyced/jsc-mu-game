@@ -1,4 +1,7 @@
-import { handleInteraction } from '../../../common/playerInteractions'
+import {
+  handleInteraction,
+  setNpcStatus,
+} from '../../../common/playerInteractions'
 import { getLevelInfo } from '../../../models/level'
 import NpcPlayer from '../../../sprites/NpcPlayer'
 import BaseSceneWithPlayer from '../../BaseSceneWithPlayer'
@@ -38,6 +41,7 @@ export default class LevelOne extends BaseSceneWithPlayer {
           npcPlayerSprite,
           this.collideWithNpc,
         )
+        setNpcStatus(npcPlayer).catch(() => void 0)
       }
     })
   }

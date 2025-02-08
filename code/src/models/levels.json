@@ -27,17 +27,21 @@
               "FOREST_GUY_INTRO_2",
               "FOREST_GUY_INTRO_3",
               "FOREST_GUY_INTRO_4"
-            ]
+            ],
+            "isSleepAfterInteractions": true
           },
           {
             "name": "zzzzz",
             "requiredItems": [],
-            "dialogs": ["FOREST_GUY_INTRO_4"]
+            "dialogs": ["FOREST_GUY_INTRO_4"],
+            "isSleeping": true,
+            "isSleepAfterInteractions": true
           },
           {
             "name": "coffee",
             "requiredItems": ["coffee"],
-            "dialogs": ["FOREST_GUY_INTRO_5"]
+            "dialogs": ["FOREST_GUY_INTRO_5"],
+            "isSleeping": true
           }
         ]
       }

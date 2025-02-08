@@ -1,5 +1,8 @@
 import Phaser from 'phaser'
-import { createIdleFrameSet } from '../common/frameSetManager'
+import {
+  createIdleFrameSet,
+  createSleepingFrameSet,
+} from '../common/frameSetManager'
 import { Coordinates } from '../models/coordinates'
 import getGeneralSettings, { GeneralSettings } from '../models/general'
 import { Interaction } from '../models/level'
@@ -54,9 +57,15 @@ export default class NpcPlayer {
 
   public getInteractions = () => this.interactions
 
+  public setAnimation = (isSleeping: boolean) => {
+    if (isSleeping) this.player.play(`${this.name}-sleep`)
+    else this.player.play(`${this.name}-idle`)
+  }
+
   private createFrameSets = (scene: Phaser.Scene) => {
     if (frameSetCreated) return
     scene.anims.create(createIdleFrameSet(this.name))
+    scene.anims.create(createSleepingFrameSet(this.name))
     frameSetCreated = true
   }
 }

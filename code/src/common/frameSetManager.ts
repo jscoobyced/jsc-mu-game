@@ -76,3 +76,13 @@ export const createIdleFrameSet = (name: string) => {
     SPRITE_DEFAULT_FRAME_NUMBER,
   )
 }
+
+export const createSleepingFrameSet = (name: string) => {
+  return createFrameSet(
+    name,
+    '',
+    'sleep',
+    DEFAULT_SPRITE_FRAMERATE,
+    SPRITE_DEFAULT_FRAME_NUMBER,
+  )
+}

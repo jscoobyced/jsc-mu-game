@@ -15,11 +15,10 @@ export const handleInteraction = async (
   npcPlayer: NpcPlayer,
   baseScene: BaseScene,
 ) => {
-  const npcPlayerSprite = npcPlayer.getSprite()
   const currentStatusData = await getCurrentStatus()
   if (!currentStatusData) return false
-  const playerSprite = player.getSprite()
   const language = currentStatusData.language
+  const playerSprite = player.getSprite()
   const currentInteractionIndex = currentStatusData.levelData.interaction | 0
   if (npcPlayer.getInteractions().length < currentInteractionIndex + 1)
     return false
@@ -30,36 +29,82 @@ export const handleInteraction = async (
     currentInteraction,
     currentStatusData,
   )
-  const coordinates = {
-    x: npcPlayerSprite.x + 240,
-    y: npcPlayerSprite.y - 150,
-  }
 
   if (
     !hasRequiredItems ||
     npcPlayer.getInteractions().length < currentInteractionIndex + 1
   ) {
     const previousInteractionIndex = Math.max(0, currentInteractionIndex - 1)
+    const previousInteraction =
+      npcPlayer.getInteractions()[previousInteractionIndex]
 
-    displayDialog(
-      npcPlayer.getInteractions()[previousInteractionIndex],
+    npcPlayer.setAnimation(!!previousInteraction.isSleeping)
+
+    displayInteraction(
+      playerSprite,
+      npcPlayer,
+      previousInteraction,
       language,
-      coordinates,
       baseScene,
+      false,
     )
 
     return true
   }
-  placePlayerNearSprite(playerSprite, npcPlayerSprite, isMobile(baseScene.game))
 
-  displayDialog(
-    npcPlayer.getInteractions()[currentInteractionIndex],
+  displayInteraction(
+    playerSprite,
+    npcPlayer,
+    currentInteraction,
     language,
-    coordinates,
     baseScene,
+    true,
   )
   await updatePlayerCurrentInteraction(currentInteractionIndex + 1)
   return true
+}
+
+export const setNpcStatus = async (npcPlayer: NpcPlayer) => {
+  const currentStatusData = await getCurrentStatus()
+  if (!currentStatusData) return
+
+  const currentInteractionIndex = currentStatusData.levelData.interaction | 0
+  if (npcPlayer.getInteractions().length < currentInteractionIndex + 1) return
+  const currentInteraction =
+    npcPlayer.getInteractions()[currentInteractionIndex]
+
+  if (currentInteraction.isSleeping) {
+    npcPlayer.setAnimation(!!currentInteraction.isSleeping)
+  }
+}
+
+const displayInteraction = (
+  playerSprite: Phaser.Physics.Arcade.Sprite,
+  npcPlayer: NpcPlayer,
+  interaction: Interaction,
+  language: string,
+  baseScene: BaseScene,
+  placePlayer: boolean,
+) => {
+  const npcPlayerSprite = npcPlayer.getSprite()
+  const coordinates = {
+    x: npcPlayerSprite.x + 240,
+    y: npcPlayerSprite.y - 150,
+  }
+  if (placePlayer)
+    placePlayerNearSprite(
+      playerSprite,
+      npcPlayerSprite,
+      isMobile(baseScene.game),
+    )
+  displayDialog(
+    interaction,
+    language,
+    coordinates,
+    baseScene,
+    npcPlayer,
+    !!interaction.isSleepAfterInteractions,
+  )
 }
 
 const playerHasInteractionRequiredItems = (
@@ -79,6 +124,8 @@ const displayDialog = (
   language: string,
   coordinates: Coordinates,
   baseScene: BaseScene,
+  npcPlayer: NpcPlayer,
+  isSleepAfterInteractions: boolean,
 ) => {
   const dialogs = interaction.dialogs
   const showText = (counter: number) => {
@@ -87,6 +134,8 @@ const displayDialog = (
       if (text) baseScene.showText(text, coordinates, showText, counter + 1)
       return true
     } else {
+      npcPlayer.setAnimation(isSleepAfterInteractions)
+
       return false
     }
   }
