@@ -88,8 +88,8 @@ const displayInteraction = (
 ) => {
   const npcPlayerSprite = npcPlayer.getSprite()
   const coordinates = {
-    x: npcPlayerSprite.x + 240,
-    y: npcPlayerSprite.y - 150,
+    x: playerSprite.x,
+    y: playerSprite.y,
   }
   if (placePlayer)
     placePlayerNearSprite(

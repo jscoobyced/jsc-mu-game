@@ -5,7 +5,7 @@ import getGeneralSettings, { GeneralSettings } from '../models/general'
 export default class Banner {
   private general: GeneralSettings = getGeneralSettings()
   private TEXT_PAD = 36
-  private FONT_SIZE = 26
+  private FONT_SIZE = 56
   private image!: Phaser.Types.Physics.Arcade.ImageWithDynamicBody
   private text!: Phaser.GameObjects.Text
   private onPointerUp: () => void = () => {
@@ -18,7 +18,6 @@ export default class Banner {
 
   create = (scene: Phaser.Scene): void => {
     this.image = scene.physics.add.image(0, 0, 'banner')
-    this.image.setScale(0.62)
     this.text = scene.add.text(
       this.image.x + this.TEXT_PAD,
       this.image.y + this.TEXT_PAD,
@@ -43,9 +42,9 @@ export default class Banner {
 
   show = (coordinates: Coordinates) => {
     this.image.setX(coordinates.x)
-    this.image.setY(coordinates.y)
-    this.text.setX(coordinates.x - 215 + this.TEXT_PAD)
-    this.text.setY(coordinates.y - 150)
+    this.image.setY(coordinates.y + 220)
+    this.text.setX(coordinates.x - this.image.width / 2 + this.TEXT_PAD)
+    this.text.setY(coordinates.y + 50 + this.TEXT_PAD)
     this.image.setVisible(true)
     this.text.setVisible(true)
   }
