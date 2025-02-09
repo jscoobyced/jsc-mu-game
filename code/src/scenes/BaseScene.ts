@@ -54,6 +54,7 @@ export default class BaseScene extends Phaser.Scene {
    */
   protected doCreate = (playerPosition: Coordinates) => {
     const map = createMap(this.levelName, this)
+    this.banner.create(this)
     if (!map) return
     if (this.player) {
       this.player.create(
@@ -69,7 +70,6 @@ export default class BaseScene extends Phaser.Scene {
       if (obstacleLayer) this.physics.add.collider(playerSprite, obstacleLayer)
       this.cameras.main.startFollow(playerSprite)
     }
-    this.banner.create(this)
   }
 
   /**
