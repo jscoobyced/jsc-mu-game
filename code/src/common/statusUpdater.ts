@@ -52,3 +52,33 @@ export const updatePlayerCurrentInteraction = async (interaction: number) => {
     await setCurrentStatus(newStatus)
   }
 }
+
+export const addToPlayerInventory = async (object: string) => {
+  const currentStatus = await getCurrentStatus()
+  if (currentStatus) {
+    const newStatus = {
+      ...currentStatus,
+      player: {
+        ...currentStatus.player,
+        inventory: [...currentStatus.player.inventory, object],
+      },
+    }
+    await setCurrentStatus(newStatus)
+  }
+}
+
+export const removeFromPlayerInventory = async (object: string) => {
+  const currentStatus = await getCurrentStatus()
+  if (currentStatus) {
+    const newStatus = {
+      ...currentStatus,
+      player: {
+        ...currentStatus.player,
+        inventory: [
+          ...currentStatus.player.inventory.filter((item) => item !== object),
+        ],
+      },
+    }
+    await setCurrentStatus(newStatus)
+  }
+}

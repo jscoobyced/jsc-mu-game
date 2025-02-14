@@ -30,10 +30,7 @@ export const handleInteraction = async (
     currentStatusData,
   )
 
-  if (
-    !hasRequiredItems ||
-    npcPlayer.getInteractions().length < currentInteractionIndex + 1
-  ) {
+  if (npcPlayer.getInteractions().length < currentInteractionIndex + 1) {
     const previousInteractionIndex = Math.max(0, currentInteractionIndex - 1)
     const previousInteraction =
       npcPlayer.getInteractions()[previousInteractionIndex]
@@ -46,7 +43,7 @@ export const handleInteraction = async (
       previousInteraction,
       language,
       baseScene,
-      false,
+      hasRequiredItems,
     )
 
     return true
@@ -58,9 +55,11 @@ export const handleInteraction = async (
     currentInteraction,
     language,
     baseScene,
-    true,
+    hasRequiredItems,
   )
-  await updatePlayerCurrentInteraction(currentInteractionIndex + 1)
+  await updatePlayerCurrentInteraction(
+    currentInteractionIndex + (hasRequiredItems ? 1 : 0),
+  )
   return true
 }
 
@@ -84,19 +83,14 @@ const displayInteraction = (
   interaction: Interaction,
   language: string,
   baseScene: BaseScene,
-  placePlayer: boolean,
+  hasRequiredItems: boolean,
 ) => {
   const npcPlayerSprite = npcPlayer.getSprite()
+  placePlayerNearSprite(playerSprite, npcPlayerSprite, isMobile(baseScene.game))
   const coordinates = {
     x: playerSprite.x,
     y: playerSprite.y,
   }
-  if (placePlayer)
-    placePlayerNearSprite(
-      playerSprite,
-      npcPlayerSprite,
-      isMobile(baseScene.game),
-    )
   displayDialog(
     interaction,
     language,
@@ -104,6 +98,7 @@ const displayInteraction = (
     baseScene,
     npcPlayer,
     !!interaction.isSleepAfterInteractions,
+    hasRequiredItems,
   )
 }
 
@@ -126,16 +121,19 @@ const displayDialog = (
   baseScene: BaseScene,
   npcPlayer: NpcPlayer,
   isSleepAfterInteractions: boolean,
+  hasRequiredItems: boolean,
 ) => {
-  const dialogs = interaction.dialogs
+  const dialogs = hasRequiredItems
+    ? interaction.dialogs.haveItems
+    : (interaction.dialogs.noItems ?? [])
+  npcPlayer.setAnimation(!hasRequiredItems)
   const showText = (counter: number) => {
     if (counter < dialogs.length) {
       const text = getI18nDialog(dialogs[counter], language)?.split('\n')
       if (text) baseScene.showText(text, coordinates, showText, counter + 1)
       return true
     } else {
-      npcPlayer.setAnimation(isSleepAfterInteractions)
-
+      npcPlayer.setAnimation(!hasRequiredItems || isSleepAfterInteractions)
       return false
     }
   }

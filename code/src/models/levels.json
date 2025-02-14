@@ -22,25 +22,29 @@
           {
             "name": "hello",
             "requiredItems": [],
-            "dialogs": [
-              "FOREST_GUY_INTRO_1",
-              "FOREST_GUY_INTRO_2",
-              "FOREST_GUY_INTRO_3",
-              "FOREST_GUY_INTRO_4"
-            ],
-            "isSleepAfterInteractions": true
-          },
-          {
-            "name": "zzzzz",
-            "requiredItems": [],
-            "dialogs": ["FOREST_GUY_INTRO_4"],
-            "isSleeping": true,
+            "dialogs": {
+              "haveItems": [
+                "FOREST_GUY_INTRO_1",
+                "FOREST_GUY_INTRO_2",
+                "FOREST_GUY_INTRO_3",
+                "FOREST_GUY_INTRO_4"
+              ]
+            },
             "isSleepAfterInteractions": true
           },
           {
             "name": "coffee",
             "requiredItems": ["coffee"],
-            "dialogs": ["FOREST_GUY_INTRO_5"],
+            "dialogs": {
+              "haveItems": [
+                "FOREST_GUY_INTRO_5",
+                "FOREST_GUY_INTRO_6",
+                "FOREST_GUY_INTRO_7",
+                "FOREST_GUY_INTRO_8",
+                "FOREST_GUY_INTRO_9"
+              ],
+              "noItems": ["FOREST_GUY_INTRO_4"]
+            },
             "isSleeping": true
           }
         ]

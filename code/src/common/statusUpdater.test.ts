@@ -2,6 +2,8 @@ import { vi } from 'vitest'
 import { Coordinates } from '../models/coordinates'
 import { CurrentStatusData } from '../models/saved'
 import {
+  addToPlayerInventory,
+  removeFromPlayerInventory,
   updatePlayerCurrentInteraction,
   updatePlayerPosition,
 } from './statusUpdater'
@@ -21,7 +23,7 @@ describe('statusUpdater', () => {
         name: 'testPlayer',
         position: { x: 0, y: 0 },
       },
-      inventory: [],
+      inventory: ['testObject'],
     },
   }
 
@@ -73,7 +75,7 @@ describe('statusUpdater', () => {
           name: 'testPlayer',
           position,
         },
-        inventory: [],
+        inventory: ['testObject'],
       },
     }
 
@@ -94,7 +96,7 @@ describe('statusUpdater', () => {
     expect(setCurrentStatusMock).toHaveBeenCalledTimes(0)
   })
 
-  it('update player position', async () => {
+  it('update player interaction', async () => {
     const position: Coordinates = {
       x: 0,
       y: 0,
@@ -107,11 +109,57 @@ describe('statusUpdater', () => {
           name: 'testPlayer',
           position,
         },
-        inventory: [],
+        inventory: ['testObject'],
       },
     }
 
     await updatePlayerCurrentInteraction(0)
+    expect(getCurrentStatusMock).toHaveBeenCalledTimes(1)
+    expect(setCurrentStatusMock).toHaveBeenCalledTimes(1)
+    expect(setCurrentStatusMock).toHaveBeenCalledWith(expected)
+  })
+
+  it('add to player inventory', async () => {
+    const coffee = 'coffee'
+    const expected: CurrentStatusData = {
+      language: 'en',
+      levelData: { levelName: 'test', interaction: 0 },
+      player: {
+        player: {
+          name: 'testPlayer',
+          position: {
+            x: 0,
+            y: 0,
+          },
+        },
+        inventory: ['testObject', coffee],
+      },
+    }
+
+    await addToPlayerInventory(coffee)
+    expect(getCurrentStatusMock).toHaveBeenCalledTimes(1)
+    expect(setCurrentStatusMock).toHaveBeenCalledTimes(1)
+    expect(setCurrentStatusMock).toHaveBeenCalledWith(expected)
+  })
+
+  it('remove from player inventory', async () => {
+    const testObject = 'testObject'
+    const expected: CurrentStatusData = {
+      language: 'en',
+      levelData: { levelName: 'test', interaction: 0 },
+      player: {
+        player: {
+          name: 'testPlayer',
+          position: {
+            x: 0,
+            y: 0,
+          },
+        },
+        inventory: [],
+      },
+    }
+
+    await removeFromPlayerInventory(testObject)
     expect(getCurrentStatusMock).toHaveBeenCalledTimes(1)
     expect(setCurrentStatusMock).toHaveBeenCalledTimes(1)
     expect(setCurrentStatusMock).toHaveBeenCalledWith(expected)

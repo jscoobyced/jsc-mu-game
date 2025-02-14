@@ -1,3 +1,8 @@
+import {
+  addToPlayerInventory,
+  removeFromPlayerInventory,
+  updatePlayerCurrentInteraction,
+} from './common/statusUpdater'
 import { getCurrentStatus } from './common/storage'
 
 declare global {
@@ -21,6 +26,30 @@ const mumu = {
       returnResult.value = JSON.stringify(result)
     }
     return returnResult.value
+  },
+  clean: async () => {
+    if (
+      document.location.hostname === 'localhost' ||
+      document.location.hostname === '127.0.0.1'
+    ) {
+      await updatePlayerCurrentInteraction(0)
+    }
+  },
+  add: async (object: string) => {
+    if (
+      document.location.hostname === 'localhost' ||
+      document.location.hostname === '127.0.0.1'
+    ) {
+      await addToPlayerInventory(object)
+    }
+  },
+  remove: async (object: string) => {
+    if (
+      document.location.hostname === 'localhost' ||
+      document.location.hostname === '127.0.0.1'
+    ) {
+      await removeFromPlayerInventory(object)
+    }
   },
 }
 

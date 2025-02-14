@@ -4,7 +4,10 @@ import { NpcInfo, PlayerInfo } from './player/player'
 export interface Interaction {
   name: string
   requiredItems: string[]
-  dialogs: string[]
+  dialogs: {
+    haveItems: string[]
+    noItems?: string[]
+  }
   isSleeping?: boolean
   isSleepAfterInteractions?: boolean
 }

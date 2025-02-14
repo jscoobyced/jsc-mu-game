@@ -7,4 +7,5 @@ export const placePlayerNearSprite = (
     sprite.x - sprite.width / 2 - playerSprite.width / 2 - (isMobile ? 20 : 10)
   const playerY = sprite.y
   playerSprite.setPosition(playerX, playerY)
+  playerSprite.setVelocity(0)
 }
