@@ -14,6 +14,9 @@ describe('playerPosition', () => {
         expect(x).toBe(50)
         expect(y).toBe(50)
       },
+      setVelocity: (velocity: number) => {
+        expect(velocity).toBe(0)
+      },
       width: 50,
     } as Phaser.Physics.Arcade.Sprite
     placePlayerNearSprite(playerSpriteMock, spriteMock, false)
@@ -24,6 +27,9 @@ describe('playerPosition', () => {
       setPosition: (x?: number, y?: number) => {
         expect(x).toBe(40)
         expect(y).toBe(50)
+      },
+      setVelocity: (velocity: number) => {
+        expect(velocity).toBe(0)
       },
       width: 50,
     } as Phaser.Physics.Arcade.Sprite
