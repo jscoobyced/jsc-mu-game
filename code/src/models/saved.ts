@@ -1,7 +1,12 @@
 import { MainPlayer } from './player/player'
 
+export interface PlayerInteraction {
+  npcName: string
+  index: number
+}
+
 export interface LevelData {
-  interaction: number
+  interactions: PlayerInteraction[]
   levelName: string
 }
 

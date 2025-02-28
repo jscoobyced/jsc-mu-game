@@ -7,9 +7,9 @@ import { Coordinates } from '../models/coordinates'
 import getGeneralSettings, { GeneralSettings } from '../models/general'
 import { Interaction } from '../models/level'
 
-let frameSetCreated = false
-
 export default class NpcPlayer {
+  private frameSetCreated = false
+
   private name!: string
   private interactions!: Interaction[]
   private player!: Phaser.Physics.Arcade.Sprite
@@ -63,9 +63,9 @@ export default class NpcPlayer {
   }
 
   private createFrameSets = (scene: Phaser.Scene) => {
-    if (frameSetCreated) return
+    if (this.frameSetCreated) return
     scene.anims.create(createIdleFrameSet(this.name))
     scene.anims.create(createSleepingFrameSet(this.name))
-    frameSetCreated = true
+    this.frameSetCreated = true
   }
 }

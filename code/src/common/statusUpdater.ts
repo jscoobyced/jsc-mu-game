@@ -1,11 +1,11 @@
 import { Coordinates } from '../models/coordinates'
 import { Languages } from '../models/languages'
-import { CurrentStatusData } from '../models/saved'
+import { CurrentStatusData, PlayerInteraction } from '../models/saved'
 import { getCurrentStatus, setCurrentStatus } from './storage'
 
 export const defaultStatusData: CurrentStatusData = {
   levelData: {
-    interaction: 0,
+    interactions: [],
     levelName: '',
   },
   language: Languages.EN,
@@ -39,14 +39,24 @@ export const updatePlayerPosition = async (position: Coordinates) => {
   }
 }
 
-export const updatePlayerCurrentInteraction = async (interaction: number) => {
+export const updatePlayerCurrentInteraction = async (
+  interaction: PlayerInteraction,
+) => {
   const currentStatus = await getCurrentStatus()
+  const interactions = currentStatus?.levelData.interactions ?? []
+  if (interactions.find((_) => _.npcName === interaction.npcName))
+    interactions.forEach((_) => {
+      if (_.npcName === interaction.npcName) _.index = interaction.index
+    })
+  else {
+    interactions.push(interaction)
+  }
   if (currentStatus) {
     const newStatus = {
       ...currentStatus,
       levelData: {
         ...currentStatus.levelData,
-        interaction: interaction,
+        interactions: interactions,
       },
     }
     await setCurrentStatus(newStatus)

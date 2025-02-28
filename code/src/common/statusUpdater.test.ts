@@ -16,7 +16,12 @@ describe('statusUpdater', () => {
     language: 'en',
     levelData: {
       levelName: 'test',
-      interaction: 0,
+      interactions: [
+        {
+          npcName: 'test',
+          index: 0,
+        },
+      ],
     },
     player: {
       player: {
@@ -69,7 +74,15 @@ describe('statusUpdater', () => {
     }
     const expected: CurrentStatusData = {
       language: 'en',
-      levelData: { levelName: 'test', interaction: 0 },
+      levelData: {
+        levelName: 'test',
+        interactions: [
+          {
+            npcName: 'test',
+            index: 0,
+          },
+        ],
+      },
       player: {
         player: {
           name: 'testPlayer',
@@ -91,7 +104,10 @@ describe('statusUpdater', () => {
       .mockImplementation(() => {
         return Promise.resolve(undefined)
       })
-    await updatePlayerCurrentInteraction(0)
+    await updatePlayerCurrentInteraction({
+      npcName: 'test',
+      index: 0,
+    })
     expect(getCurrentStatusMock).toHaveBeenCalledTimes(1)
     expect(setCurrentStatusMock).toHaveBeenCalledTimes(0)
   })
@@ -103,7 +119,15 @@ describe('statusUpdater', () => {
     }
     const expected: CurrentStatusData = {
       language: 'en',
-      levelData: { levelName: 'test', interaction: 0 },
+      levelData: {
+        levelName: 'test',
+        interactions: [
+          {
+            npcName: 'test',
+            index: 0,
+          },
+        ],
+      },
       player: {
         player: {
           name: 'testPlayer',
@@ -113,7 +137,10 @@ describe('statusUpdater', () => {
       },
     }
 
-    await updatePlayerCurrentInteraction(0)
+    await updatePlayerCurrentInteraction({
+      npcName: 'test',
+      index: 0,
+    })
     expect(getCurrentStatusMock).toHaveBeenCalledTimes(1)
     expect(setCurrentStatusMock).toHaveBeenCalledTimes(1)
     expect(setCurrentStatusMock).toHaveBeenCalledWith(expected)
@@ -123,7 +150,15 @@ describe('statusUpdater', () => {
     const coffee = 'coffee'
     const expected: CurrentStatusData = {
       language: 'en',
-      levelData: { levelName: 'test', interaction: 0 },
+      levelData: {
+        levelName: 'test',
+        interactions: [
+          {
+            npcName: 'test',
+            index: 0,
+          },
+        ],
+      },
       player: {
         player: {
           name: 'testPlayer',
@@ -146,7 +181,15 @@ describe('statusUpdater', () => {
     const testObject = 'testObject'
     const expected: CurrentStatusData = {
       language: 'en',
-      levelData: { levelName: 'test', interaction: 0 },
+      levelData: {
+        levelName: 'test',
+        interactions: [
+          {
+            npcName: 'test',
+            index: 0,
+          },
+        ],
+      },
       player: {
         player: {
           name: 'testPlayer',

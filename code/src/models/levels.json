@@ -21,7 +21,10 @@
         "interactions": [
           {
             "name": "hello",
-            "requiredItems": [],
+            "items": {
+              "required": [],
+              "given": []
+            },
             "dialogs": {
               "haveItems": [
                 "FOREST_GUY_INTRO_1",
@@ -34,7 +37,10 @@
           },
           {
             "name": "coffee",
-            "requiredItems": ["coffee"],
+            "items": {
+              "required": ["coffee"],
+              "given": []
+            },
             "dialogs": {
               "haveItems": [
                 "FOREST_GUY_INTRO_5",
@@ -46,6 +52,27 @@
               "noItems": ["FOREST_GUY_INTRO_4"]
             },
             "isSleeping": true
+          }
+        ]
+      },
+      {
+        "player": {
+          "name": "coffee-guy",
+          "position": {
+            "x": 800,
+            "y": 2688
+          }
+        },
+        "interactions": [
+          {
+            "name": "hello",
+            "items": {
+              "required": [],
+              "given": ["coffee"]
+            },
+            "dialogs": {
+              "haveItems": ["COFFEE_1"]
+            }
           }
         ]
       }

@@ -1,0 +1,165 @@
+{
+  "textures": [
+    {
+      "image": "coffee-guy.png",
+      "format": "RGBA8888",
+      "size": {
+        "w": 128,
+        "h": 64
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "coffee-guy-idle-01",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "anchor": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        },
+        {
+          "filename": "coffee-guy-idle-02",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 64,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "anchor": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        },
+        {
+          "filename": "coffee-guy-idle-03",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "anchor": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        },
+        {
+          "filename": "coffee-guy-sleep-01",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 128,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "anchor": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        },
+        {
+          "filename": "coffee-guy-sleep-02",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 128,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "anchor": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        },
+        {
+          "filename": "coffee-guy-sleep-03",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 128,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "anchor": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        }
+      ]
+    }
+  ]
+}

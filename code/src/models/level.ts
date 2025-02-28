@@ -3,7 +3,10 @@ import { NpcInfo, PlayerInfo } from './player/player'
 
 export interface Interaction {
   name: string
-  requiredItems: string[]
+  items: {
+    required: string[]
+    given: string[]
+  }
   dialogs: {
     haveItems: string[]
     noItems?: string[]
