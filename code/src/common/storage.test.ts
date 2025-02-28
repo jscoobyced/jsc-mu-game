@@ -7,7 +7,7 @@ import { getCurrentStatus, setCurrentStatus } from './storage'
 describe('storage', () => {
   const currentStatusData: CurrentStatusData = {
     levelData: {
-      interaction: 0,
+      interactions: [],
       levelName: 'test',
     },
     language: Languages.EN,

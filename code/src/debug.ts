@@ -32,7 +32,7 @@ const mumu = {
       document.location.hostname === 'localhost' ||
       document.location.hostname === '127.0.0.1'
     ) {
-      await updatePlayerCurrentInteraction(0)
+      await updatePlayerCurrentInteraction({ npcName: '', index: 0 })
     }
   },
   add: async (object: string) => {
